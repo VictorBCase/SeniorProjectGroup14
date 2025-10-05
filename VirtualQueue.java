@@ -29,10 +29,23 @@ public class VirtualQueue {
     }
 
     //TODO: Remove user from Queue if they wish to leave before their turn
-    /*public boolean leaveQueue(String userId) {
-       
+    public boolean leaveQueue(String userId) {
+        if(userId == null){
+            System.out.println("Error: User id does not exist");
+            return false;
+
+        }
+        for(User people : queue){
+            if(people.getId().equals(userId)){
+                queue.remove(people);
+                System.out.println(("You have succesfully left the queue"));
+                return true;
+            }
+        }
+        System.out.println("You are not in a queue currently");
+        return false;
     }
-    */
+
 
     //View all users in the VQueue
     public void viewQueue() {
