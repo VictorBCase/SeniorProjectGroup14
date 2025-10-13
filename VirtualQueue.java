@@ -28,7 +28,6 @@ public class VirtualQueue {
         return next;
     }
 
-    //TODO: Remove user from Queue if they wish to leave before their turn
     public boolean leaveQueue(String userId) {
         if(userId == null){
             System.out.println("Error: User id does not exist");

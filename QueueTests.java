@@ -11,7 +11,6 @@ public class QueueTests {
 
         vq.serveNext();
         vq.serveNext();
-
         vq.viewQueue();
 
         System.out.println("Queue size: " + vq.size());
