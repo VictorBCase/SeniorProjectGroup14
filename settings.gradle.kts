@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Senior Project Group 14"
 include(":app")
- 
+include(":backend")

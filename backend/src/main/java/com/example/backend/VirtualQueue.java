@@ -1,3 +1,5 @@
+package com.example.backend;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -28,12 +30,8 @@ public class VirtualQueue {
         return next;
     }
 
-    public boolean leaveQueue(String userId) {
-        if(userId == null){
-            System.out.println("Error: User id does not exist");
-            return false;
-
-        }
+    public boolean leaveQueue(User user) {
+        String userId = user.getId();
         for(User people : queue){
             if(people.getId().equals(userId)){
                 queue.remove(people);
