@@ -1,19 +1,29 @@
 package com.example.backend;
+import java.util.*;
 
 public class QueueTests {
     public static void main(String[] args) {
-        VirtualQueue vq = new VirtualQueue();
+      VirtualQueue vq = new VirtualQueue();
 
-//Testing queue (no QR implemented yet)
+        User TestUser = new User("TestUser");
+        User TestUser2 = new User("TestUser2");
+        vq.joinQueue(TestUser);
+        vq.joinQueue(TestUser2);
 
-        vq.joinQueue(new User("TestUser1"));
-        vq.joinQueue(new User("TestUser2"));
-        vq.joinQueue(new User("TestUser3"));
+        List<User> groupMembers = Arrays.asList(
+            new User("User1"),
+            new User("User2"),
+            new User("USer3")
+        );
+        Group testGroup = new Group("Group1", groupMembers);
+        vq.joinQueue(testGroup);
 
-        vq.serveNext();
-        vq.serveNext();
         vq.viewQueue();
 
-        System.out.println("Queue size: " + vq.size());
+        vq.leaveQueue(testGroup.getGroupId());
+        vq.viewQueue();
+
+        vq.serveNext();
+        vq.viewQueue();
     }
 }
