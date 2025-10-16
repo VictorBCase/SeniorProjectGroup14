@@ -7,10 +7,13 @@ public class Group {
     private String groupName;
     private List<User> members;
 
+    private int size = 0;
+
     public Group(String groupName, List<User> members) {
         this.groupId = UUID.randomUUID().toString();
         this.groupName = groupName;
         this.members = members;
+        this.size = members.size();
     }
 
     public String getGroupId() {
@@ -25,6 +28,10 @@ public class Group {
         return members;
     }
 
+    public int getSize(){
+        return this.size;
+    }
+
     public String memberNames() {
         StringBuilder sb = new StringBuilder();
         for (User u : members) {
@@ -33,4 +40,5 @@ public class Group {
         // Removes trailing commas and spaces if present
         return sb.length() > 1 ? sb.substring(0, sb.length() - 2) : "";
     }
+
 }
