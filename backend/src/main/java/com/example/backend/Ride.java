@@ -97,7 +97,7 @@ public class Ride {
     public void scanToJoin(User user, String scannedCode){
         if (scannedCode.equals(qrCode)){
             queue.joinQueue(user);
-            updateWaitTime();
+            //updateWaitTime();
         }
         else {
             System.out.println("Invalid QR code. Cannot join " + rideName + ".");
@@ -113,7 +113,7 @@ public class Ride {
     public void scanToJoin(Group group, String scannedCode){
         if (scannedCode.equals(qrCode)){
             queue.joinQueue(group);
-            updateWaitTime();
+            //updateWaitTime();
         }
         else {
             System.out.println("Invalid QR code. Cannot join " + rideName + ".");
@@ -129,7 +129,7 @@ public class Ride {
     public void scanToLeave(User user, String scannedCode){
         if (scannedCode.equals(qrCode)){
             queue.leaveQueue(user.getId());
-            updateWaitTime();
+           // updateWaitTime();
         }
         else {
             System.out.println("Invalid QR code. Cannot join " + rideName + ".");
@@ -144,7 +144,7 @@ public class Ride {
     public void scanToLeave(Group group, String scannedCode){
         if (scannedCode.equals(qrCode)){
             queue.leaveQueue(group.getGroupId());
-            updateWaitTime();
+           // updateWaitTime();
         }
         else {
             System.out.println("Invalid QR code. Cannot join " + rideName + ".");
@@ -156,14 +156,14 @@ public class Ride {
      * hourly capacity, and load time.
      *Formula used: waitTime = (queueSize / (hourlyCapacity / 60)) * loadTime
      */
-    public void updateWaitTime(){
+    /* public void updateWaitTime(){
         if(queue.getSize() == 0){
             waitTime = 0;
         }
         else {
             waitTime = ((double) queue.getSize() / ((double) hourlyCapacity / 60)) * loadTime;
         }
-    }
+    } */
 }
 
 
