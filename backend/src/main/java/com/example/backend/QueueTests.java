@@ -3,27 +3,28 @@ import java.util.*;
 
 public class QueueTests {
     public static void main(String[] args) {
-      VirtualQueue vq = new VirtualQueue();
+      VirtualQueue queue = new VirtualQueue();
 
-        User TestUser = new User("TestUser");
-        User TestUser2 = new User("TestUser2");
-        vq.joinQueue(TestUser);
-        vq.joinQueue(TestUser2);
+        //Creating manual users
+        User john = new User("John");
+        User adam = new User("Adam");
+        User chris = new User("Chris");
+        User wendy = new User("Wendy");
 
-        List<User> groupMembers = Arrays.asList(
-            new User("User1"),
-            new User("User2"),
-            new User("USer3")
-        );
-        Group testGroup = new Group("Group1", groupMembers);
-        vq.joinQueue(testGroup);
+        //Group creation where John is owner
+        Group group = new Group("LotsOfRides", john);
+        group.addMember(adam);
+        group.addMember(chris);
 
-        vq.viewQueue();
+        // John's group joins the queue
+        queue.joinQueue(group);
 
-        vq.leaveQueue(testGroup.getGroupId());
-        vq.viewQueue();
+        // Another individual joins, separate from the group
+        queue.joinQueue(wendy);
 
-        vq.serveNext();
-        vq.viewQueue();
+        //Queue Methods
+        queue.viewQueue();
+        queue.leaveQueue(group.getGroupId());
+        queue.viewQueue();
     }
 }

@@ -9,13 +9,11 @@ public class VirtualQueue {
 
     public void joinQueue(User user) {
         queue.add(user);
-        size++;
         System.out.println(user.getName() + " joined the queue. Position: " + queue.size());
     }
 
     public void joinQueue(Group group) {
         queue.add(group);
-        size = size + group.getSize();
         System.out.println(group.getGroupName() + " (Group) joined the queue with members: " + group.memberNames());
     }
 
@@ -46,7 +44,6 @@ public class VirtualQueue {
                 User user = (User) obj;
                 if (user.getId().equals(id)) {
                     iterator.remove();
-                    size--;
                     System.out.println(user.getName() + " left the queue voluntarily.");
                     return true;
                 }
@@ -54,7 +51,6 @@ public class VirtualQueue {
                 Group group = (Group) obj;
                 if (group.getGroupId().equals(id)) {
                     iterator.remove();
-                    size = size - group.getSize();
                     System.out.println(group.getGroupName() + " (Group) left the queue voluntarily.");
                     return true;
                 }
@@ -84,5 +80,4 @@ public class VirtualQueue {
             position++;
         }
     }
-
 }
