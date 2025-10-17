@@ -5,9 +5,7 @@ public class VirtualQueue {
     private Queue<Object> queue = new LinkedList<>(); //Changed to object to account for class user and group
     private int size = 0;
 
-    public int getSize() {
-        return size;
-    }
+    public int getSize() {return size;}
 
     public void joinQueue(User user) {
         queue.add(user);
