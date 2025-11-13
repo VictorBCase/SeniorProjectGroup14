@@ -9,6 +9,7 @@ java {
 dependencies {
     implementation("com.google.zxing:core:3.5.2")
     implementation("com.google.zxing:javase:3.5.2")
+    implementation("org.postgresql:postgresql:42.7.1")
     testImplementation(libs.junit.jupiter)
 
 }
