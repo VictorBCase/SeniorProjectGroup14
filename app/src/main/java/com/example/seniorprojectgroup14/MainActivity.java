@@ -4,20 +4,42 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+import com.example.backend.*;
+
+public class MainActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_layout);
-
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(this);
     }
 
-    public void onClick(View v) {
-        Intent intent = new Intent(MainActivity.this, null);
-        startActivity(intent);
+    public void buttonClicked(View view) {
+
+        if (view.getId() == R.id.button) {
+            Intent intent = new Intent(MainActivity.this, QueueActivity.class);
+
+            User testUser = new User("Test User");
+            VirtualQueue testQueue = new VirtualQueue();
+            Ride testRide = new Ride(
+                    "0", "Test Ride", testQueue, 100, 5);
+            testQueue.joinQueue(testUser);
+            testQueue.viewQueue();
+
+            intent.putExtra("isGroup", false);
+            intent.putExtra("testUser", testUser.getName());
+            intent.putExtra("testRide", testRide.getRideName());
+            CharSequence text = "You're in the queue!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(this , text, duration);
+            toast.show();
+            startActivity(intent);
+        }
+        else if (view.getId() == R.id.button2) {
+            Intent intent = new Intent(MainActivity.this, GroupActivity.class);
+            startActivity(intent);
+        }
     }
 }

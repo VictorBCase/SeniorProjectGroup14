@@ -12,10 +12,11 @@
         android:contextClickable="true"
         android:cursorVisible="false"
         android:drawableTint="#673AB7"
-        android:text="Scan a Ride"
+        android:text="I'm riding solo"
         android:textAppearance="@android:style/TextAppearance.Material.Body1"
         android:translationX="50dp"
-        android:translationY="150dp" />
+        android:translationY="200dp"
+        android:onClick="buttonClicked"/>
 
     <TextView
         android:id="@+id/textView"
@@ -38,5 +39,20 @@
         android:text="version 0.1.0"
         android:translationX="160dp"
         android:translationY="60dp" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@android:style/Widget.Button"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:contextClickable="true"
+        android:cursorVisible="false"
+        android:drawableTint="#673AB7"
+        android:text="I'm in a group"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:translationX="50dp"
+        android:translationY="170dp"
+        android:onClick="buttonClicked"/>
 
 </LinearLayout>
