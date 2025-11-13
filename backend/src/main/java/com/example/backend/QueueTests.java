@@ -28,7 +28,7 @@ public class QueueTests {
         queue.leaveQueue(group.getGroupId());
         queue.viewQueue();
 
-    
+
       //Test a ride
        Ride ride = new Ride("R1", "Maverick", queue, 7, 2);
         System.out.println(ride.getRideId());
@@ -39,6 +39,6 @@ public class QueueTests {
         System.out.println(ride.getLoadTime());
         System.out.println(ride.getQueue());
 
-        
+
     }
 }

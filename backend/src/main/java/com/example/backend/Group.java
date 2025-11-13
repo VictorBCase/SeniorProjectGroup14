@@ -39,7 +39,7 @@ public class Group {
     public String memberNames() {
         StringBuilder sb = new StringBuilder();
         for (User u : members) {
-            sb.append(u.getName()).append(", ");
+            sb.append(u.getUsername()).append(", ");
         }
         // Removes trailing commas and spaces if present
         return sb.length() > 1 ? sb.substring(0, sb.length() - 2) : "";
@@ -50,9 +50,9 @@ public class Group {
         if (!members.contains(user)) {
             members.add(user);
             size++;
-            System.out.println(user.getName() + " added to group " + groupName);
+            System.out.println(user.getUsername() + " added to group " + groupName);
         } else {
-            System.out.println(user.getName() + " is already in the group " + groupName);
+            System.out.println(user.getUsername() + " is already in the group " + groupName);
         }
     }
 
@@ -60,9 +60,9 @@ public class Group {
     public void removeMember(User user) {
         if (members.remove(user)) {
             size--;
-            System.out.println(user.getName() + " removed from group " + groupName);
+            System.out.println(user.getUsername() + " removed from group " + groupName);
         } else {
-            System.out.println(user.getName() + " not found in group " + groupName);
+            System.out.println(user.getUsername() + " not found in group " + groupName);
         }
     }
 
