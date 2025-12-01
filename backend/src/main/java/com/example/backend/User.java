@@ -15,6 +15,13 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
+    //contructor for loading from database
+    public User(String id, String name, String passwordHash) {
+        this.id = UUID.randomUUID().toString(); //UUID converted to string; can change if we don't want UUID
+        this.username = name;
+        this.passwordHash = passwordHash;
+    }
+
     public String getId() { return id; }
 
     public String getUsername() {return username;}
