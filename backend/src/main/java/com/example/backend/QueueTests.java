@@ -1,4 +1,5 @@
 package com.example.backend;
+
 import java.util.*;
 
 public class QueueTests {
@@ -26,5 +27,18 @@ public class QueueTests {
         queue.viewQueue();
         queue.leaveQueue(group.getGroupId());
         queue.viewQueue();
+
+
+      //Test a ride
+       Ride ride = new Ride("R1", "Maverick", queue, 7, 2);
+        System.out.println(ride.getRideId());
+        System.out.println(ride.getRideName());
+        ride.generateQRCode();
+        System.out.println(ride.getQrCode());
+        System.out.println(ride.getHourlyCapacity());
+        System.out.println(ride.getLoadTime());
+        System.out.println(ride.getQueue());
+
+
     }
 }

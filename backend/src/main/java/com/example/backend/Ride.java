@@ -20,26 +20,27 @@ public class Ride {
 
     /**
      * Constructs a Ride with the given parameters.
-     * @param rideId          Unique identifier for the ride
-     * @param rideName        Name of the ride
-     * @param queue           VirtualQueue object managing users in line
-     * @param hourlyCapacity  Number of people the ride can handle per hour
-     * @param loadTime        Average load cycle time in minutes
+     *
+     * @param rideId         Unique identifier for the ride
+     * @param rideName       Name of the ride
+     * @param queue          VirtualQueue object managing users in line
+     * @param hourlyCapacity Number of people the ride can handle per hour
+     * @param loadTime       Average load cycle time in minutes
      */
-    public Ride(String rideId, String rideName, VirtualQueue queue,  int hourlyCapacity, int loadTime) {
+    public Ride(String rideId, String rideName, VirtualQueue queue, int hourlyCapacity, int loadTime) {
         this.rideId = rideId;
         this.rideName = rideName;
         this.qrCode = "https://vqueue.app/ride/" + rideId;
         this.queue = new VirtualQueue();
         this.hourlyCapacity = hourlyCapacity;
-        this.loadTime= loadTime;
+        this.loadTime = loadTime;
     }
 
     /**
      * Generates a QR code image for the ride, saved as a PNG file.
      * The QR code encodes the ride's unique join URL.
      */
-    public void generateQRCode(){
+    public void generateQRCode() {
         this.qrImagePath = "ride_" + rideId + "_qr.png";
         try {
             QRCodeGenerator.createQR(qrCode, qrImagePath, "UTF-8", new HashMap<>(), 300, 300);
@@ -48,58 +49,80 @@ public class Ride {
         }
     }
 
-    /** @return the unique ride ID */
+    /**
+     * @return the unique ride ID
+     */
     public String getRideId() {
         return rideId;
     }
 
-    /** @return the name of the ride */
+    /**
+     * @return the name of the ride
+     */
     public String getRideName() {
         return rideName;
     }
 
-    /** @return the URL encoded in the ride's QR code */
+    /**
+     * @return the URL encoded in the ride's QR code
+     */
     public String getQrCode() {
         return qrCode;
     }
 
-    /** @return the file path of the QR code image */
+    /**
+     * @return the file path of the QR code image
+     */
     public String getQrImagePath() {
         return qrImagePath;
     }
 
-    /** @return the VirtualQueue for this ride */
+    /**
+     * @return the VirtualQueue for this ride
+     */
     public VirtualQueue getQueue() {
         return queue;
     }
 
-    /** @return current estimated wait time in minutes */
-    public double getWaitTime() {return waitTime;}
+    /**
+     * @return current estimated wait time in minutes
+     */
+    public double getWaitTime() {
+        return waitTime;
+    }
 
-    /** @return the maximum ride capacity per hour */
-    public int getHourlyCapacity(){return hourlyCapacity;}
+    /**
+     * @return the maximum ride capacity per hour
+     */
+    public int getHourlyCapacity() {
+        return hourlyCapacity;
+    }
 
-    /** @return the time in minutes it takes for one loading cycle */
-    public int getLoadTime(){return loadTime;}
+    /**
+     * @return the time in minutes it takes for one loading cycle
+     */
+    public int getLoadTime() {
+        return loadTime;
+    }
 
     /**
      * Displays the estimated wait time for this ride.
      */
-    public void viewWaitTime(){
+    public void viewWaitTime() {
         System.out.println("Wait time for " + rideName + ": " + waitTime + " minutes");
     }
 
     /**
      * Allows a single user to join the ride's queue by scanning its QR code.
+     *
      * @param user        the user attempting to join
      * @param scannedCode the scanned QR code string
      */
-    public void scanToJoin(User user, String scannedCode){
-        if (scannedCode.equals(qrCode)){
+    public void scanToJoin(User user, String scannedCode) {
+        if (scannedCode.equals(qrCode)) {
             queue.joinQueue(user);
-            updateWaitTime();
-        }
-        else {
+            //updateWaitTime();
+        } else {
             System.out.println("Invalid QR code. Cannot join " + rideName + ".");
         }
 
@@ -107,15 +130,15 @@ public class Ride {
 
     /**
      * Allows a group of users to join the ride's queue by scanning its QR code.
+     *
      * @param group       the group attempting to join
      * @param scannedCode the scanned QR code string
      */
-    public void scanToJoin(Group group, String scannedCode){
-        if (scannedCode.equals(qrCode)){
+    public void scanToJoin(Group group, String scannedCode) {
+        if (scannedCode.equals(qrCode)) {
             queue.joinQueue(group);
-            updateWaitTime();
-        }
-        else {
+            //updateWaitTime();
+        } else {
             System.out.println("Invalid QR code. Cannot join " + rideName + ".");
         }
 
@@ -123,30 +146,30 @@ public class Ride {
 
     /**
      * Allows a user to leave the ride's queue by scanning the QR code.
+     *
      * @param user        the user attempting to leave
      * @param scannedCode the scanned QR code string
      */
-    public void scanToLeave(User user, String scannedCode){
-        if (scannedCode.equals(qrCode)){
+    public void scanToLeave(User user, String scannedCode) {
+        if (scannedCode.equals(qrCode)) {
             queue.leaveQueue(user.getId());
-            updateWaitTime();
-        }
-        else {
+            // updateWaitTime();
+        } else {
             System.out.println("Invalid QR code. Cannot join " + rideName + ".");
         }
     }
 
     /**
      * Allows a group to leave the ride's queue by scanning the QR code.
+     *
      * @param group       the group attempting to leave
      * @param scannedCode the scanned QR code string
      */
-    public void scanToLeave(Group group, String scannedCode){
-        if (scannedCode.equals(qrCode)){
+    public void scanToLeave(Group group, String scannedCode) {
+        if (scannedCode.equals(qrCode)) {
             queue.leaveQueue(group.getGroupId());
-            updateWaitTime();
-        }
-        else {
+            // updateWaitTime();
+        } else {
             System.out.println("Invalid QR code. Cannot join " + rideName + ".");
         }
     }
@@ -154,13 +177,12 @@ public class Ride {
     /**
      * Updates the ride's estimated wait time based on the queue size,
      * hourly capacity, and load time.
-     *Formula used: waitTime = (queueSize / (hourlyCapacity / 60)) * loadTime
+     * Formula used: waitTime = (queueSize / (hourlyCapacity / 60)) * loadTime
      */
-    public void updateWaitTime(){
-        if(queue.getSize() == 0){
+    public void updateWaitTime() {
+        if (queue.getSize() == 0) {
             waitTime = 0;
-        }
-        else {
+        } else {
             waitTime = ((double) queue.getSize() / ((double) hourlyCapacity / 60)) * loadTime;
         }
     }

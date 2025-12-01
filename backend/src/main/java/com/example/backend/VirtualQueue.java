@@ -3,10 +3,13 @@ import java.util.*;
 
 public class VirtualQueue {
     private Queue<Object> queue = new LinkedList<>(); //Changed to object to account for class user and group
+    private int size = 0;
+
+    public int getSize() {return size;}
 
     public void joinQueue(User user) {
         queue.add(user);
-        System.out.println(user.getName() + " joined the queue. Position: " + queue.size());
+        System.out.println(user.getUsername() + " joined the queue. Position: " + queue.size());
     }
 
     public void joinQueue(Group group) {
@@ -24,7 +27,7 @@ public class VirtualQueue {
 
         if (next instanceof User) { //User 
             User user = (User) next;
-            System.out.println("Serving " + user.getName());
+            System.out.println("Serving " + user.getUsername());
         } else if (next instanceof Group) { //Group
             Group group = (Group) next;
             System.out.println("Serving group: " + group.getGroupName() + " (" + group.memberNames() + ")");
@@ -41,7 +44,7 @@ public class VirtualQueue {
                 User user = (User) obj;
                 if (user.getId().equals(id)) {
                     iterator.remove();
-                    System.out.println(user.getName() + " left the queue voluntarily.");
+                    System.out.println(user.getUsername() + " left the queue voluntarily.");
                     return true;
                 }
             } else if (obj instanceof Group) {
@@ -69,7 +72,7 @@ public class VirtualQueue {
         for (Object obj : queue) {
             if (obj instanceof User) {
                 User user = (User) obj;
-                System.out.println(position + ". " + user.getName() + " (User ID: " + user.getId() + ")");
+                System.out.println(position + ". " + user.getUsername() + " (User ID: " + user.getId() + ")");
             } else if (obj instanceof Group) {
                 Group group = (Group) obj;
                 System.out.println(position + ". [Group: " + group.getGroupName() + "] Members: " + group.memberNames());
