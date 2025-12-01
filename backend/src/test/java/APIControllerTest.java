@@ -24,18 +24,19 @@ public class APIControllerTest {
         }
 
         db = new DatabaseManager(
-                "jdbc:postgresql://localhost:5432/vqueue_test",
-                "postgres",
-                "vqueue"
+                "jdbc:postgresql://vqueue-db.c9ukqu4ie5ns.us-east-2.rds.amazonaws.com:5432/vqueue",
+                "vqueueadmin",
+                "virtualqueue"
         );
 
         // Clear tables
         try (Connection connection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/vqueue_test",
-                "postgres",
-                "vqueue"
+                "jdbc:postgresql://vqueue-db.c9ukqu4ie5ns.us-east-2.rds.amazonaws.com:5432/vqueue",
+                "vqueueadmin",
+                "virtualqueue"
         );
              Statement stmt = connection.createStatement()) {
+            System.out.println("DB = " + connection.getMetaData().getURL());
             stmt.execute("TRUNCATE queue_entries, group_members, groups, rides, users RESTART IDENTITY CASCADE;");
         }
 
@@ -52,6 +53,7 @@ public class APIControllerTest {
 
     @Test
     void testRegisterAndLogin() throws IOException {
+
         JSONObject registerBody = new JSONObject();
         registerBody.put("username", "Julio");
         registerBody.put("password", "123");
@@ -167,67 +169,67 @@ public class APIControllerTest {
         assertFalse(checkResponse.getBoolean("isMember"));
     }
 
-//    @Test
-//    void testMultipleUsersQueueAndPositions() throws IOException {
-//        Ride ride = new Ride("R6", "Lightning Rod", new VirtualQueue(), 10, 2);
-//        rideManager.addRide(ride);
-//        db.addRide("R6", "Lightning Rod", 10, 2, ride.getQrCode(), ride.getQrImagePath());
-//
-//        String[] usernames = {"UserA", "UserB", "UserC"};
-//        String[] userIds = new String[3];
-//
-//        for (int i = 0; i < usernames.length; i++) {
-//
-//            JSONObject reg = new JSONObject();
-//            reg.put("username", usernames[i]);
-//            reg.put("password", "pw");
-//            JSONObject regResponse = sendPost("/register", reg);
-//            userIds[i] = regResponse.getString("userId");
-//            System.out.println("Registered: " + usernames[i]);
-//
-//            // Login user
-//            JSONObject login = new JSONObject();
-//            login.put("username", usernames[i]);
-//            login.put("password", "pw");
-//            sendPost("/login", login);
-//            System.out.println("Logged in: " + usernames[i]);
-//
-//            // Join queue
-//            JSONObject join = new JSONObject();
-//            join.put("rideId", "R6");
-//            join.put("entityId", userIds[i]);
-//            join.put("scannedCode", ride.getQrCode());
-//            JSONObject joinResponse = sendPost("/scanToJoin", join);
-//            assertTrue(joinResponse.getBoolean("success"), "Join failed for " + usernames[i]);
-//            System.out.println(usernames[i] + " joined at position " + joinResponse.getInt("position"));
-//
-//
-//            JSONObject queueBody = new JSONObject();
-//            queueBody.put("rideId", "R6");
-//            JSONObject queueResponse = sendPost("/viewQueue", queueBody);
-//            System.out.println("Current queue: " + queueResponse.getJSONArray("queue").toString());
-//        }
-//
-//
-//        JSONObject finalQueueBody = new JSONObject();
-//        finalQueueBody.put("rideId", "R6");
-//        JSONObject finalQueueResponse = sendPost("/viewQueue", finalQueueBody);
-//        assertEquals(3, finalQueueResponse.getJSONArray("queue").length(), "Queue length mismatch");
-//        for (int i = 0; i < usernames.length; i++) {
-//            assertEquals(usernames[i], finalQueueResponse.getJSONArray("queue").getString(i),
-//                    "Queue order mismatch at position " + i);
-//        }
-//
-//
-//        for (int i = 0; i < userIds.length; i++) {
-//            JSONObject posBody = new JSONObject();
-//            posBody.put("rideId", "R6");
-//            posBody.put("entityId", userIds[i]);
-//            JSONObject posResponse = sendPost("/userPosition", posBody);
-//            assertEquals(i + 1, posResponse.getInt("position"),
-//                    "Position mismatch for " + usernames[i]);
-//        }
-//    }**/
+    @Test
+    void testMultipleUsersQueueAndPositions() throws IOException {
+        Ride ride = new Ride("R6", "Lightning Rod", new VirtualQueue(), 10, 2);
+        rideManager.addRide(ride);
+        db.addRide("R6", "Lightning Rod", 10, 2, ride.getQrCode(), ride.getQrImagePath());
+
+        String[] usernames = {"UserA", "UserB", "UserC"};
+        String[] userIds = new String[3];
+
+        for (int i = 0; i < usernames.length; i++) {
+
+            JSONObject reg = new JSONObject();
+            reg.put("username", usernames[i]);
+            reg.put("password", "pw");
+            JSONObject regResponse = sendPost("/register", reg);
+            userIds[i] = regResponse.getString("userId");
+            System.out.println("Registered: " + usernames[i]);
+
+            // Login user
+            JSONObject login = new JSONObject();
+            login.put("username", usernames[i]);
+            login.put("password", "pw");
+            sendPost("/login", login);
+            System.out.println("Logged in: " + usernames[i]);
+
+            // Join queue
+            JSONObject join = new JSONObject();
+            join.put("rideId", "R6");
+            join.put("entityId", userIds[i]);
+            join.put("scannedCode", ride.getQrCode());
+            JSONObject joinResponse = sendPost("/scanToJoin", join);
+            assertTrue(joinResponse.getBoolean("success"), "Join failed for " + usernames[i]);
+            System.out.println(usernames[i] + " joined at position " + joinResponse.getInt("position"));
+
+
+            JSONObject queueBody = new JSONObject();
+            queueBody.put("rideId", "R6");
+            JSONObject queueResponse = sendPost("/viewQueue", queueBody);
+            System.out.println("Current queue: " + queueResponse.getJSONArray("queue").toString());
+        }
+
+
+        JSONObject finalQueueBody = new JSONObject();
+        finalQueueBody.put("rideId", "R6");
+        JSONObject finalQueueResponse = sendPost("/viewQueue", finalQueueBody);
+        assertEquals(3, finalQueueResponse.getJSONArray("queue").length(), "Queue length mismatch");
+        for (int i = 0; i < usernames.length; i++) {
+            assertEquals(usernames[i], finalQueueResponse.getJSONArray("queue").getString(i),
+                    "Queue order mismatch at position " + i);
+        }
+
+
+        for (int i = 0; i < userIds.length; i++) {
+            JSONObject posBody = new JSONObject();
+            posBody.put("rideId", "R6");
+            posBody.put("entityId", userIds[i]);
+            JSONObject posResponse = sendPost("/userPosition", posBody);
+            assertEquals(i + 1, posResponse.getInt("position"),
+                    "Position mismatch for " + usernames[i]);
+        }
+    }
 
 }
 

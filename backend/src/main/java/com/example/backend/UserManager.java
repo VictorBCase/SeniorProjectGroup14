@@ -2,12 +2,20 @@ package com.example.backend;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserManager {
-    private Map<String, User> users = new HashMap<>();
 
+    private Map<String, User> usersById = new HashMap<>();
+    private Map<String, User> users = new HashMap<>();
+    private final DatabaseManager db;
+
+    public UserManager(DatabaseManager db){
+        this.db = db;
+    }
     public boolean createUser(String username, String password) {
         if (users.containsKey(username)) {
             System.out.println("Username already exists.");
@@ -16,6 +24,7 @@ public class UserManager {
         String hashedPassword = hashPassword(password);
         User newUser = new User(username, hashedPassword);
         users.put(username, newUser);
+        usersById.put(newUser.getId(), newUser);
         System.out.println("User registered: " + username);
         return true;
     }
@@ -38,6 +47,13 @@ public class UserManager {
         return user;
     }
 
+    /**
+     * finds a user by its Id
+     * @param userId the users unique id
+     * @return the user object or null if it is not found
+     */
+    public User getUser(String userId){return usersById.get(userId);}
+
     //Password hashing using SHA-256
     //Note: Security was a nonfunctional requirement but I'll leave it with just the hash.
     // Don't really see the point in adding a salt as well just for a student project
@@ -52,6 +68,25 @@ public class UserManager {
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 algorithm not found.", e);
+        }
+    }
+
+    /**
+     * helper method to load users from database
+     */
+    private void loadUsersFromDatabase(){
+        try(ResultSet rs = db.getAllUsers()){
+            while (rs.next()){
+                String userId = rs.getString("user_id");
+                String userName = rs.getString("user_name");
+                String passwordHash = rs.getString(("password_hash"));
+                //create user
+                User user = new User(userId, userName, passwordHash);
+                users.put(userName, user);
+                usersById.put(user.getId(), user);
+            }
+        } catch(SQLException e){
+            throw new RuntimeException("Failed to load rides: " + e.getMessage());
         }
     }
 }

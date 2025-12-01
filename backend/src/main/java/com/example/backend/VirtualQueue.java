@@ -3,9 +3,9 @@ import java.util.*;
 
 public class VirtualQueue {
     private Queue<Object> queue = new LinkedList<>(); //Changed to object to account for class user and group
-    private int size = 0;
 
-    public int getSize() {return size;}
+
+    public int getSize() {return queue.size();}
 
     public void joinQueue(User user) {
         queue.add(user);
@@ -79,5 +79,25 @@ public class VirtualQueue {
             }
             position++;
         }
+    }
+
+    /**
+     * Returns a list of display names in queue order.
+     * Used by the /viewQueue API to show readable queue contents.
+     *
+     * @return List of usernames or group names in queue order.
+     */
+    public List<String> getQueueAsNameList() {
+        List<String> list = new ArrayList<>();
+
+        for (Object obj : queue) {
+            if (obj instanceof User u) {
+                list.add(u.getUsername());
+            } else if (obj instanceof Group g) {
+                list.add(g.getGroupName() + " (Group)");
+            }
+        }
+
+        return list;
     }
 }
