@@ -20,6 +20,16 @@ public class Group {
         this.size = 1;
     }
 
+    //constructor for loading from db
+    public Group(String groupName, User owner, String groupId) {
+        this.groupId = groupId;
+        this.groupName = groupName;
+        this.owner = owner;
+        this.members = new ArrayList<>();
+        this.members.add(owner); // Owner is added to group on creation
+        this.size = 1;
+    }
+
     // Constructor for group if members are already provided
     public Group(String groupName, List<User> members) {
         this.groupId = UUID.randomUUID().toString();
