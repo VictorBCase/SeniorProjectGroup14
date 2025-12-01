@@ -2,11 +2,7 @@ import com.example.backend.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class RideTest {
 
@@ -41,8 +37,9 @@ public class RideTest {
 
     @Test
     void testScanToJoin(){
+        DatabaseManager db = new DatabaseManager();
         VirtualQueue queue = new VirtualQueue();
-        UserManager manager = new UserManager();
+        UserManager manager = new UserManager(db);
         Ride ride = new Ride("R4", "Steel Vengeance", queue, 10, 2);
         manager.createUser("Julio", "1");
         User user = manager.login("Julio", "1");
@@ -53,8 +50,9 @@ public class RideTest {
 
     @Test
     void testScanToJoinGroup(){
+        DatabaseManager db = new DatabaseManager();
         VirtualQueue queue = new VirtualQueue();
-        UserManager manager = new UserManager();
+        UserManager manager = new UserManager(db);
         manager.createUser("Julio", "1");
         User user = manager.login("Julio", "1");
         manager.createUser("Jonah", "1");
@@ -74,9 +72,10 @@ public class RideTest {
 
     @Test
     void testScanToLeave(){
+        DatabaseManager db = new DatabaseManager();
         VirtualQueue queue = new VirtualQueue();
         Ride ride = new Ride("R4", "Steel Vengeance", queue, 10, 2);
-        UserManager manager = new UserManager();
+        UserManager manager = new UserManager(db);
         manager.createUser("Julio", "1");
         User user = manager.login("Julio", "1");
         ride.scanToJoin(user, "https://vqueue.app/ride/R4");
@@ -87,8 +86,9 @@ public class RideTest {
 
     @Test
     void testScanToLeaveGroup(){
+        DatabaseManager db = new DatabaseManager();
         VirtualQueue queue = new VirtualQueue();
-        UserManager manager = new UserManager();
+        UserManager manager = new UserManager(db);
         manager.createUser("Julio", "1");
         User user = manager.login("Julio", "1");
         manager.createUser("Jonah", "1");
@@ -109,9 +109,10 @@ public class RideTest {
 
     @Test
     void testInvalidQRCode(){
+        DatabaseManager db = new DatabaseManager();
         VirtualQueue queue = new VirtualQueue();
         Ride ride = new Ride("R4", "Steel Vengeance", queue, 10, 2);
-        UserManager manager = new UserManager();
+        UserManager manager = new UserManager(db);
         manager.createUser("Julio", "1");
         User user = manager.login("Julio", "1");
         ride.scanToJoin(user, "https://vqueue.app/ride/R2");
@@ -121,8 +122,9 @@ public class RideTest {
 
     @Test
     void testGetWaitTime(){
+        DatabaseManager db = new DatabaseManager();
         VirtualQueue queue = new VirtualQueue();
-        UserManager manager = new UserManager();
+        UserManager manager = new UserManager(db);
         manager.createUser("Julio", "1");
         User user = manager.login("Julio", "1");
         manager.createUser("Jonah", "1");

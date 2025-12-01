@@ -1,5 +1,7 @@
 package com.example.backend;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -35,6 +37,28 @@ public class Ride {
         this.hourlyCapacity = hourlyCapacity;
         this.loadTime = loadTime;
     }
+
+    /**
+     * Reconstructs a Ride from database
+     *
+     * @param rideId         Unique identifier for the ride
+     * @param rideName       Name of the ride
+     * @param queue          VirtualQueue object managing users in line
+     * @param hourlyCapacity Number of people the ride can handle per hour
+     * @param loadTime       Average load cycle time in minutes
+     * @param qrCode         the encoded qr code
+     * @param qrImagePath    the path to the qr code
+     */
+    public Ride(String rideId, String rideName, VirtualQueue queue, int hourlyCapacity, int loadTime, String qrCode, String qrImagePath) {
+        this.rideId = rideId;
+        this.rideName = rideName;
+        this.queue = new VirtualQueue();
+        this.hourlyCapacity = hourlyCapacity;
+        this.loadTime = loadTime;
+        this.qrCode = qrCode;
+        this.qrImagePath = qrImagePath;
+    }
+
 
     /**
      * Generates a QR code image for the ride, saved as a PNG file.
