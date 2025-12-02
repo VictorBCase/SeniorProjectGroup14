@@ -3,40 +3,53 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+
+import java.net.InetSocketAddress;
 import java.net.URI;
 
 public class ChatClientTest {
-/*     public static void main(String[] args) throws Exception {
-        ChatServer server = new ChatServer(8887);
+    public static void main(String[] args) throws Exception {
+        // database manager
+        DatabaseManager db = new DatabaseManager();
+        UserManager userManager = new UserManager(db);
+
+        //test account
+        userManager.createUser("testuser1", "123");
+        User user = userManager.login("testuser1", "123");
+        System.out.println("ID = " + user.getId());
+
+        //WebSocket server with user manager
+        ChatServer server = new ChatServer(new InetSocketAddress("0.0.0.0", 8887), userManager);
         server.start();
+        Thread.sleep(500);  //alowing server to fully start before continuing
+
         System.out.println("Server started on port 8887");
-    
+
         URI uri = new URI("ws://localhost:8887");
         Gson gson = new Gson();
-       
+
         WebSocketClient client = new WebSocketClient(uri) {
             @Override
             public void onOpen(ServerHandshake handshake) {
                 System.out.println("Connected to server");
 
-                //Part 1: Test authenticating user
+                //AUTHENTICATE
                 JsonObject auth = new JsonObject();
                 auth.addProperty("action", "auth");
-                auth.addProperty("username", "testuser");
-                auth.addProperty("userId", "u1"); 
+                auth.addProperty("userId", user.getId());
                 send(gson.toJson(auth));
 
-                //Part 2: Test user joining a group
+                //JOIN GROUP
                 JsonObject join = new JsonObject();
                 join.addProperty("action", "join");
                 join.addProperty("groupId", "group-123");
                 send(gson.toJson(join));
 
-                //Part 3: Test sending the chat message
+                //SEND A MESSAGE
                 JsonObject msg = new JsonObject();
                 msg.addProperty("action", "message");
                 msg.addProperty("groupId", "group-123");
-                msg.addProperty("content", "Hello from client!");
+                msg.addProperty("content", "Hello from testuser1!");
                 send(gson.toJson(msg));
             }
 
@@ -58,7 +71,7 @@ public class ChatClientTest {
 
         client.connectBlocking();
 
-        Thread.sleep(30_000);
+        Thread.sleep(30_000); // wait 30 seconds to receive messages
         client.close();
-    } */
+    }
 }
