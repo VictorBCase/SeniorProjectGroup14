@@ -12,10 +12,10 @@ public class APIControllerTest {
 
     private int port;
     private DatabaseManager db;
-    private UserManager userManager;
-    private RideManager rideManager;
+    private UserManager um;
+    private RideManager rm;
     private APIController api;
-
+    private GroupManager gm;
     @BeforeEach
     void setup() throws Exception {
         // Pick a random free port
@@ -40,9 +40,10 @@ public class APIControllerTest {
             stmt.execute("TRUNCATE queue_entries, group_members, groups, rides, users RESTART IDENTITY CASCADE;");
         }
 
-        userManager = new UserManager(db);
-        rideManager = new RideManager(db, userManager);
-        api = new APIController(db, userManager, rideManager, port);
+        um = new UserManager(db);
+        rm = new RideManager(db, um);
+        gm = new GroupManager(db, um);
+        api = new APIController(db, um, rm, gm, port);
     }
 
     @AfterEach
@@ -74,7 +75,7 @@ public class APIControllerTest {
     @Test
     void testScanToJoinAndViewQueue() throws IOException {
         Ride ride = new Ride("R1", "Millennium Force", new VirtualQueue(), 20, 2);
-        rideManager.addRide(ride);
+        rm.addRide(ride);
         db.addRide("R1", "Millennium Force", 20, 2, ride.getQrCode() , ride.getQrImagePath());
 
         JSONObject regBody = new JSONObject();
@@ -172,7 +173,7 @@ public class APIControllerTest {
     @Test
     void testMultipleUsersQueueAndPositions() throws IOException {
         Ride ride = new Ride("R6", "Lightning Rod", new VirtualQueue(), 10, 2);
-        rideManager.addRide(ride);
+        rm.addRide(ride);
         db.addRide("R6", "Lightning Rod", 10, 2, ride.getQrCode(), ride.getQrImagePath());
 
         String[] usernames = {"UserA", "UserB", "UserC"};
