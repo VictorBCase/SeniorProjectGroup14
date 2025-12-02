@@ -189,10 +189,11 @@ public class ChatServer extends WebSocketServer {
    
     public static void main(String[] args) {
         // database manager
-       // UserManager userManager = new UserManager(database);
+        DatabaseManager db = new DatabaseManager();
+        UserManager userManager = new UserManager(db);
 
         //test account
-        userManager.createUser("teseruser1", "123");
+        userManager.createUser("testuser1", "123");
         User user = userManager.login("testuser1", "123");
         System.out.println("ID = " + user.getId());
 
