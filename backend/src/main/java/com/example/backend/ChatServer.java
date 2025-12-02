@@ -28,12 +28,16 @@ public class ChatServer extends WebSocketServer {
     private final Map<WebSocket, User> connectionUsers = new ConcurrentHashMap<>();
     private final Map<String, Set<WebSocket>> groupMembers = new ConcurrentHashMap<>();
 
-    public ChatServer(InetSocketAddress address) { //constructor for an address
+    private UserManager userManager;
+
+    public ChatServer(InetSocketAddress address, UserManager userManager) { //constructor for an address
         super(address);
+        this.userManager = userManager;
     }
 
-    public ChatServer(int port) { //constructor for a port number
+    public ChatServer(int port, UserManager userManager) { //constructor for a port number
         super(new InetSocketAddress(port));
+        this.userManager = userManager;
     }
 
     @Override
@@ -94,23 +98,18 @@ public class ChatServer extends WebSocketServer {
     // --- handlers ---
     // AUTH 
     private void handleAuth(WebSocket conn, JsonObject json) {
-        String username = json.has("username") ? json.get("username").getAsString() : null;
-        String userId = json.has("userId") ? json.get("userId").getAsString() : null;
+        String userId = json.get("userId").getAsString();
 
-        if (username == null || userId == null) {
-            sendError(conn, "auth_failed", "username and userId required");
-            conn.close();
+        User user = userManager.getUser(userId); //call to user database
+        if (user == null) {
+            conn.send("{\"error\":\"Invalid userId\"}");
             return;
         }
 
-        User user = new User(username,password); // REPLACE with a username from the database
-    
         connectionUsers.put(conn, user);
-        JsonObject resp = new JsonObject();
-        resp.addProperty("type", "auth_ok");
-        resp.addProperty("message", "Authenticated as " + username);
-        conn.send(gson.toJson(resp));
+        conn.send("{\"status\":\"authenticated\",\"username\":\"" + user.getUsername() + "\"}");
     }
+
     // JOIN
     private void handleJoin(WebSocket conn, JsonObject json) {
         String groupId = json.has("groupId") ? json.get("groupId").getAsString() : null;
@@ -189,8 +188,18 @@ public class ChatServer extends WebSocketServer {
 
    
     public static void main(String[] args) {
-        ChatServer server = new ChatServer(new InetSocketAddress("0.0.0.0", 8887));
+        // database manager
+       // UserManager userManager = new UserManager(database);
+
+        //test account
+        userManager.createUser("teseruser1", "123");
+        User user = userManager.login("testuser1", "123");
+        System.out.println("ID = " + user.getId());
+
+        //WebSocket server with user manager
+        ChatServer server = new ChatServer(new InetSocketAddress("0.0.0.0", 8887), userManager);
         server.start();
+
         System.out.println("Server started on port 8887");
     }
 

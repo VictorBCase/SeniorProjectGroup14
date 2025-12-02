@@ -6,7 +6,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 
 public class ChatClientTest {
-public static void main(String[] args) throws Exception {
+/*     public static void main(String[] args) throws Exception {
         ChatServer server = new ChatServer(8887);
         server.start();
         System.out.println("Server started on port 8887");
@@ -60,5 +60,5 @@ public static void main(String[] args) throws Exception {
 
         Thread.sleep(30_000);
         client.close();
-    }
+    } */
 }
