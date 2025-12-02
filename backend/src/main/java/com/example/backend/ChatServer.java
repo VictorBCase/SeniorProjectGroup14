@@ -28,8 +28,12 @@ public class ChatServer extends WebSocketServer {
     private final Map<WebSocket, User> connectionUsers = new ConcurrentHashMap<>();
     private final Map<String, Set<WebSocket>> groupMembers = new ConcurrentHashMap<>();
 
-    public ChatServer(InetSocketAddress address) {
+    public ChatServer(InetSocketAddress address) { //constructor for an address
         super(address);
+    }
+
+    public ChatServer(int port) { //constructor for a port number
+        super(new InetSocketAddress(port));
     }
 
     @Override
@@ -99,7 +103,7 @@ public class ChatServer extends WebSocketServer {
             return;
         }
 
-        User user = new User(username,password);
+        User user = new User(username,password); // REPLACE with a username from the database
     
         connectionUsers.put(conn, user);
         JsonObject resp = new JsonObject();
