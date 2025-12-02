@@ -82,4 +82,112 @@ public class ChatServer extends WebSocketServer {
         }
     }
 
+    @Override
+    public void onStart() {
+        System.out.println("ChatServer started on " + getAddress());
+    }
+
+    // --- handlers ---
+    // AUTH 
+    private void handleAuth(WebSocket conn, JsonObject json) {
+        String username = json.has("username") ? json.get("username").getAsString() : null;
+        String userId = json.has("userId") ? json.get("userId").getAsString() : null;
+
+        if (username == null || userId == null) {
+            sendError(conn, "auth_failed", "username and userId required");
+            conn.close();
+            return;
+        }
+
+        User user = new User(username,password);
+    
+        connectionUsers.put(conn, user);
+        JsonObject resp = new JsonObject();
+        resp.addProperty("type", "auth_ok");
+        resp.addProperty("message", "Authenticated as " + username);
+        conn.send(gson.toJson(resp));
+    }
+    // JOIN
+    private void handleJoin(WebSocket conn, JsonObject json) {
+        String groupId = json.has("groupId") ? json.get("groupId").getAsString() : null;
+        if (groupId == null) {
+            sendError(conn, "join_failed", "groupId required");
+            return;
+        }
+        groupMembers.computeIfAbsent(groupId, k -> Collections.newSetFromMap(new ConcurrentHashMap<>())).add(conn);
+
+        JsonObject resp = new JsonObject();
+        resp.addProperty("type", "join_ok");
+        resp.addProperty("groupId", groupId);
+        conn.send(gson.toJson(resp));
+    }
+    // LEAVE
+    private void handleLeave(WebSocket conn, JsonObject json) {
+        String groupId = json.has("groupId") ? json.get("groupId").getAsString() : null;
+        if (groupId == null) {
+            sendError(conn, "leave_failed", "groupId required");
+            return;
+        }
+        Set<WebSocket> members = groupMembers.get(groupId);
+        if (members != null) {
+            members.remove(conn);
+        }
+        JsonObject resp = new JsonObject();
+        resp.addProperty("type", "leave_ok");
+        resp.addProperty("groupId", groupId);
+        conn.send(gson.toJson(resp));
+    }
+    // MESSAGE
+    private void handleMessage(WebSocket conn, JsonObject json) {
+        String groupId = json.has("groupId") ? json.get("groupId").getAsString() : null;
+        String content = json.has("content") ? json.get("content").getAsString() : null;
+
+        if (groupId == null || content == null) {
+            sendError(conn, "message_failed", "groupId and content required");
+            return;
+        }
+
+        User sender = connectionUsers.get(conn);
+        if (sender == null) {
+            sendError(conn, "not_authenticated", "Authenticate first");
+            return;
+        }
+
+        //Message payload
+        JsonObject payload = new JsonObject();
+        payload.addProperty("type", "message");
+        payload.addProperty("groupId", groupId);
+        payload.addProperty("senderId", sender.getId());
+        payload.addProperty("senderName", sender.getUsername());
+        payload.addProperty("content", content);
+        payload.addProperty("timestamp", LocalDateTime.now().toString());
+
+        String jsonPayload = gson.toJson(payload);
+
+        //broadcast message payload to group
+        Set<WebSocket> members = groupMembers.getOrDefault(groupId, Collections.emptySet());
+        for (WebSocket memberConn : members) {
+            try {
+                memberConn.send(jsonPayload);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void sendError(WebSocket conn, String code, String message) {
+        JsonObject err = new JsonObject();
+        err.addProperty("type", "error");
+        err.addProperty("code", code);
+        err.addProperty("message", message);
+        conn.send(gson.toJson(err));
+    }
+
+   
+    public static void main(String[] args) {
+        ChatServer server = new ChatServer(new InetSocketAddress("0.0.0.0", 8887));
+        server.start();
+        System.out.println("Server started on port 8887");
+    }
+
 }
