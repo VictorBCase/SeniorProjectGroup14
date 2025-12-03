@@ -87,17 +87,18 @@ public class APIController {
                 return;
             }
 
-            User u = um.login(username, password);
-            db.addUser(u.getId(),u.getUsername(),u.getPasswordHash());
+            User user = um.login(username, password);
+            db.addUser(user.getId(),user.getUsername(),user.getPasswordHash());
 
             JSONObject response = new JSONObject();
             response.put("success", true);
-            response.put("userId", u.getId());
+            response.put("userId", user.getId());
 
             sendJSON(exchange, response);
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -115,17 +116,17 @@ public class APIController {
             String username = body.optString("username", null);
             String password = body.optString("password", null);
 
-            User u = um.login(username, password);
+            User user = um.login(username, password);
 
             JSONObject response = new JSONObject();
-            response.put("success", u!=null);
+            response.put("success", user!=null);
 
-            if (u != null){
-                boolean isValidLogin = db.validateLogin(u.getUsername(), u.getPasswordHash());
+            if (user != null){
+                boolean isValidLogin = db.validateLogin(user.getUsername(), user.getPasswordHash());
                 response.put("success", isValidLogin);
 
                 if(isValidLogin){
-                    response.put("userId", u.getId());
+                    response.put("userId", user.getId());
                 }
             }
 
@@ -133,6 +134,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -156,13 +158,21 @@ public class APIController {
             Ride ride = rm.getRide(rideId);
             if(ride == null){
                 sendError(exchange, 403, "ride not found");
+                return;
             }
 
             else if(!qr.equals(ride.getQrCode())){
                 sendError(exchange, 404, "invalid QR code");
+                return;
             }
 
-            ride.scanToJoin(um.getUser(userId), qr);
+            User user = um.getUser(userId);
+            if (user == null) {
+                sendError(exchange, 406, "user not found");
+                return;
+            }
+
+            ride.scanToJoin(user, qr);
             int position = ride.getQueue().getSize();
             System.out.println(position);
             db.joinQueue(rideId, userId, "user", position);
@@ -176,6 +186,7 @@ public class APIController {
             sendJSON(exchange, response);
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -198,12 +209,21 @@ public class APIController {
 
             if(ride == null){
                 sendError(exchange, 403, "ride not found");
+                return;
             }
 
             else if(!qr.equals(ride.getQrCode())){
                 sendError(exchange, 404, "invalid QR code");
+                return;
             }
-            ride.scanToLeave(um.getUser(userId), qr);
+
+            User user = um.getUser(userId);
+            if (user == null) {
+                sendError(exchange, 406, "user not found");
+                return;
+            }
+
+            ride.scanToLeave(user, qr);
             boolean removed = db.leaveQueue(rideId, userId);
             ride.updateWaitTime();
             double waitTime = ride.getWaitTime();
@@ -215,6 +235,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -239,6 +260,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
 
     }
@@ -255,15 +277,26 @@ public class APIController {
 
             JSONObject body = new JSONObject(readBody(exchange));
             String rideId = body.getString("rideId");
+
             Ride ride = rm.getRide(rideId);
+            if (ride == null) {
+                sendError(exchange, 403, "ride not found");
+                return;
+            }
 
             List<String> names = ride.getQueue().getQueueAsNameList();
+
             JSONObject response = new JSONObject();
-            response.put("queue", new JSONArray(names));
+            JSONArray arr = new JSONArray();
+            for (String n : names) {
+                arr.put(n == null ? JSONObject.NULL : n);
+            }
+
+            response.put("queue", arr);
 
             sendJSON(exchange, response);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             sendError(exchange, 500, e.toString());
         }
     }
@@ -290,6 +323,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -306,9 +340,15 @@ public class APIController {
 
             String groupName = body.getString("groupName");
             String ownerId = body.getString("ownerId");
-
             String groupId = UUID.randomUUID().toString();
+            System.out.println(ownerId);
             User user = um.getUser(ownerId);
+            System.out.println(user.getUsername());
+            if(user == null){
+                sendError(exchange, 406, "user not found");
+                return;
+            }
+
             Group group = new Group(groupName, user, groupId);
             gm.addGroup(group);
             db.addGroup(groupId, groupName, ownerId);
@@ -318,8 +358,9 @@ public class APIController {
 
             sendJSON(exchange, response);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -348,7 +389,13 @@ public class APIController {
                 sendError(exchange, 404, "invalid QR code");
                 return;
             }
+
             Group group = gm.getGroup(groupId);
+            if (group == null) {
+                sendError(exchange, 405, "group not found");
+                return;
+            }
+
             ride.scanToJoin(group, qr);
             int position = ride.getQueue().getSize();
             db.joinQueue(rideId, groupId, "group", position);
@@ -364,6 +411,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -392,7 +440,12 @@ public class APIController {
                 sendError(exchange, 404, "invalid QR code");
                 return;
             }
+
             Group group = gm.getGroup(groupId);
+            if (group == null) {
+                sendError(exchange, 405, "group not found");
+                return;
+            }
 
             ride.scanToLeave(group, qr);
             boolean removed = db.leaveQueue(rideId, groupId);
@@ -407,6 +460,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -424,7 +478,16 @@ public class APIController {
             String userId = body.getString("userId");
 
             Group group = gm.getGroup(groupId);
+            if (group == null) {
+                sendError(exchange, 405, "group not found");
+                return;
+            }
+
             User user = um.getUser(userId);
+            if(user == null){
+                sendError(exchange, 406, "user not found");
+                return;
+            }
 
             group.addMember(user);
             db.addMemberToGroup(groupId, userId);
@@ -435,6 +498,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -452,7 +516,16 @@ public class APIController {
             String userId = body.getString("userId");
 
             Group group = gm.getGroup(groupId);
+            if (group == null) {
+                sendError(exchange, 405, "group not found");
+                return;
+            }
+
             User user = um.getUser(userId);
+            if(user == null){
+                sendError(exchange, 406, "user not found");
+                return;
+            }
             group.removeMember(user);
             db.removeMemberFromGroup(groupId, userId);
 
@@ -462,6 +535,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 
@@ -487,6 +561,7 @@ public class APIController {
 
         } catch (IOException e) {
             sendError(exchange, 500, e.toString());
+            return;
         }
     }
 

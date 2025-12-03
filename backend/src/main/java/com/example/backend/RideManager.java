@@ -81,22 +81,24 @@ public class RideManager {
      * will load all queues from the database and add riders
      * @param rideId the unique ride ID
      */
-    private void loadQueuesFromDatabase(String rideId){
+    private void loadQueuesFromDatabase(String rideId) {
         Ride ride = getRide(rideId);
         if (ride == null) return;
 
-        try(ResultSet rs = db.getAllUsersInQueue(rideId)){
-            while (rs.next()){
+        try (ResultSet rs = db.getAllUsersInQueue(rideId)) {
+            while (rs.next()) {
                 String userId = rs.getString("entity_id");
                 User user = um.getUser(userId);
 
                 if (user == null) {
                     System.err.println("Warning: User " + userId + " not found in UserManager. Skipping.");
-                    continue; // skip this entry
+                    continue;
                 }
-                ride.scanToJoin(user, ride.getQrCode());
+
+                // FIX: restore queue WITHOUT triggering scan logic or DB writes
+                ride.getQueue().joinQueue(user);
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Failed to load rides: " + e.getMessage());
         }
     }
