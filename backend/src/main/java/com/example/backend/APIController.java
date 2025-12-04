@@ -45,7 +45,7 @@ public class APIController {
 
         //groups
         server.createContext("/createGroup", this::createGroup);
-        server.createContext("/addMemberToGroup", this::addMemeberToGroup);
+        server.createContext("/addMemberToGroup", this::addMemberToGroup);
         server.createContext("/removeMemberFromGroup", this::removeMemberFromGroup);
         server.createContext("/scanToJoinGroup", this::scanToJoinGroup);
         server.createContext("/scanToLeaveGroup", this::scanToLeaveGroup);
@@ -469,7 +469,7 @@ public class APIController {
      * @param exchange expects groupId and userId
      * @throws IOException thrown if JSON fails
      */
-    private void addMemeberToGroup(HttpExchange exchange) throws IOException {
+    private void addMemberToGroup(HttpExchange exchange) throws IOException {
         try {
             if (!requirePostRequest(exchange)) return;
 
