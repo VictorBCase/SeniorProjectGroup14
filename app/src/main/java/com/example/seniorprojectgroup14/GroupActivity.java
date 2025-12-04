@@ -21,7 +21,7 @@ public class GroupActivity extends Activity {
         if (view.getId() == R.id.button3) {
             Intent intent = new Intent(GroupActivity.this, QueueActivity.class);
 
-            User testUser = new User("Test User");
+            User testUser = new User("Test User", "password");
             Group testGroup = new Group("Test Group", testUser);
             VirtualQueue testQueue = new VirtualQueue();
             Ride testRide = new Ride(
@@ -43,12 +43,12 @@ public class GroupActivity extends Activity {
         else if (view.getId() == R.id.button4) {
             Intent intent = new Intent(GroupActivity.this, QueueActivity.class);
 
-            User testUser = new User("Test User");
+            User testUser = new User("Test User", "password");
             Group testGroup = new Group("Test Group", testUser);
             VirtualQueue testQueue = new VirtualQueue();
             Ride testRide = new Ride(
                     "0", "Test Ride", testQueue, 100, 5);
-            testGroup.addMember(new User("Test User 2"));
+            testGroup.addMember(new User("Test User 2", "password"));
             testQueue.joinQueue(testGroup);
             CharSequence text = "Group added to queue!";
 

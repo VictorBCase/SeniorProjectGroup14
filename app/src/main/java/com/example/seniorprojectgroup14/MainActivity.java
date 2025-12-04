@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
         if (view.getId() == R.id.button) {
             Intent intent = new Intent(MainActivity.this, QueueActivity.class);
 
-            User testUser = new User("Test User");
+            User testUser = new User("Test User", "password");
             VirtualQueue testQueue = new VirtualQueue();
             Ride testRide = new Ride(
                     "0", "Test Ride", testQueue, 100, 5);
@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
             testQueue.viewQueue();
 
             intent.putExtra("isGroup", false);
-            intent.putExtra("testUser", testUser.getName());
+            intent.putExtra("testUser", testUser.getUsername());
             intent.putExtra("testRide", testRide.getRideName());
             CharSequence text = "You're in the queue!";
             int duration = Toast.LENGTH_SHORT;
