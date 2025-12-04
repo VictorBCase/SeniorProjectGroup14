@@ -23,7 +23,7 @@
         app:frameVerticalBias="0.5"
         app:maskColor="#77000000"/>
     <SeekBar
-        andoid:id="@+id/seekBar"
+        android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="30"
