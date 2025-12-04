@@ -13,4 +13,11 @@ public class CreateGroupActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_group_layout);
     }
+
+    public void buttonClicked(View view) {
+        if (view.getId() == R.id.done) {
+            Intent intent = new Intent(CreateGroupActivity.this, QRScannerActivity.class);
+            startActivity(intent);
+        }
+    }
 }
