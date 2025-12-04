@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:text="Waiting to\nJoin Group"
+        android:textAlignment="center"
+        android:textColor="#71146F"
+        android:translationX="180dp"
+        android:translationY="100dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Your name will appear\non the group owner's screen"
+        android:translationX="120dp"
+        android:translationY="250dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:translationX="160dp"
+        android:translationY="350dp" />
+
+
+</FrameLayout>

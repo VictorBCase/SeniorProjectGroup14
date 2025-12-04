@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:text="You are\nin line for __"
+        android:textAlignment="center"
+        android:textColor="#71146F"
+        android:translationX="0dp"
+        android:translationY="100dp" />
+
+    <TextView
+        android:id="@+id/estTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:text="Estimated Time: __"
+        android:textAlignment="center"
+        android:textColor="#71146F"
+        android:translationX="0dp"
+        android:translationY="290dp" />
+
+    <TextView
+        android:id="@+id/pplInFront"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:text="People in Front of You: __"
+        android:textAlignment="center"
+        android:textColor="#71146F"
+        android:translationX="0dp"
+        android:translationY="250dp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Leave Queue"
+        android:translationX="160dp"
+        android:translationY="500dp" />
+
+
+</FrameLayout>
