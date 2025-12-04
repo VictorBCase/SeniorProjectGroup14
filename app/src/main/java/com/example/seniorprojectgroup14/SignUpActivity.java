@@ -11,15 +11,6 @@ import com.example.backend.*;
 
 public class SignUpActivity extends Activity {
 
-    DatabaseManager dbm = new DatabaseManager();
-    UserManager um = new UserManager(dbm);
-    GroupManager gm = new GroupManager(dbm, um);
-    RideManager rm = new RideManager(dbm, um);
-    try(APIController api = new APIController(dbm, um, rm, gm, 1234))
-    catch {
-
-    }
-
     EditText usernameInput;
     EditText passwordInput;
 

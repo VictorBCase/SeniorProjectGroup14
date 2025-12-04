@@ -26,16 +26,9 @@
         android:layout_height="50dp"
         android:ems="10"
         android:inputType="text"
-        android:text="New Username"
+        android:hint="New Username"
         android:translationX="100dp"
         android:translationY="200dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="100dp"
-        android:translationY="200dp">
-    </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
         android:id="@+id/passwordInput"
@@ -43,14 +36,7 @@
         android:layout_height="50dp"
         android:ems="10"
         android:inputType="text"
-        android:text="New Password"
+        android:hint="New Password"
         android:translationX="100dp"
         android:translationY="200dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="100dp"
-        android:translationY="200dp">
-    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

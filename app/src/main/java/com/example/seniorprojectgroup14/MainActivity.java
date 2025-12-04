@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
     public void buttonClicked(View view) {
 
         if (view.getId() == R.id.button) {
-            Intent intent = new Intent(MainActivity.this, QueueActivity.class);
+            Intent intent = new Intent(MainActivity.this, QRScannerActivity.class);
             startActivity(intent);
         }
         else if (view.getId() == R.id.button2) {
