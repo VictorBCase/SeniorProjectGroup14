@@ -14,7 +14,9 @@ public class UserManager {
     private final DatabaseManager db;
 
     public UserManager(DatabaseManager db){
+
         this.db = db;
+        loadUsersFromDatabase();
     }
     public boolean createUser(String username, String password) {
         if (users.containsKey(username)) {
@@ -78,15 +80,16 @@ public class UserManager {
         try(ResultSet rs = db.getAllUsers()){
             while (rs.next()){
                 String userId = rs.getString("user_id");
-                String userName = rs.getString("user_name");
+                String userName = rs.getString("username");
                 String passwordHash = rs.getString(("password_hash"));
                 //create user
                 User user = new User(userId, userName, passwordHash);
                 users.put(userName, user);
                 usersById.put(user.getId(), user);
+                System.out.println(userId);
             }
         } catch(SQLException e){
-            throw new RuntimeException("Failed to load rides: " + e.getMessage());
+            throw new RuntimeException("Failed to load users: " + e.getMessage());
         }
     }
 }
