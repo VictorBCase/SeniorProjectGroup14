@@ -47,6 +47,11 @@ public class PopulateDatabase {
         Ride steelVengance = new Ride(UUID.randomUUID().toString(), "Steel Vengance", new VirtualQueue(), 12, 3);
         Ride topThrillTwo = new Ride(UUID.randomUUID().toString(), "Top Thrill Two", new VirtualQueue(), 10, 1);
         Ride millenniumForce = new Ride(UUID.randomUUID().toString(), "Millennium Force", new VirtualQueue(), 13, 2);
+        maverick.generateQRCode();
+        magnumXL200.generateQRCode();
+        steelVengance.generateQRCode();
+        topThrillTwo.generateQRCode();
+        millenniumForce.generateQRCode();
 
         db.addRide(maverick.getRideId(), maverick.getRideName(), maverick.getHourlyCapacity(), maverick.getLoadTime(), maverick.getQrCode(), maverick.getQrImagePath());
         db.addRide(magnumXL200.getRideId(), magnumXL200.getRideName(), magnumXL200.getHourlyCapacity(), magnumXL200.getLoadTime(), magnumXL200.getQrCode(), magnumXL200.getQrImagePath());

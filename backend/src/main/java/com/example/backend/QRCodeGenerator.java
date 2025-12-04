@@ -27,11 +27,16 @@ public class QRCodeGenerator {
      */
     public static void createQR(String data, String path, String charset, Map hashMap, int height, int width) throws WriterException, IOException {
 
+        Path qrDir = Paths.get("QRCodes");
+        if (!Files.exists(qrDir)) {
+            Files.createDirectories(qrDir);
+        }
+
         BitMatrix matrix = new MultiFormatWriter().encode(
                 new String(data.getBytes(charset), charset),
                 BarcodeFormat.QR_CODE, width, height);
 
-        Path outputPath = java.nio.file.FileSystems.getDefault().getPath(path);
+        Path outputPath = qrDir.resolve(path);
 
         MatrixToImageWriter.writeToPath(matrix, path.substring(path.lastIndexOf('.') + 1), outputPath);
     }
