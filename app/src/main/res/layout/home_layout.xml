@@ -3,6 +3,7 @@
              android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
+
     <Button
         android:id="@+id/button"
         style="@android:style/Widget.Button"
@@ -12,11 +13,11 @@
         android:contextClickable="true"
         android:cursorVisible="false"
         android:drawableTint="#673AB7"
-        android:text="I'm riding solo"
+        android:onClick="buttonClicked"
+        android:text="Create new account"
         android:textAppearance="@android:style/TextAppearance.Material.Body1"
         android:translationX="50dp"
-        android:translationY="200dp"
-        android:onClick="buttonClicked"/>
+        android:translationY="200dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -30,15 +31,6 @@
         android:translationX="180dp"
         android:translationY="50dp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="version 0.1.0"
-        android:translationX="160dp"
-        android:translationY="60dp" />
-
     <Button
         android:id="@+id/button2"
         style="@android:style/Widget.Button"
@@ -48,10 +40,10 @@
         android:contextClickable="true"
         android:cursorVisible="false"
         android:drawableTint="#673AB7"
-        android:text="I'm in a group"
+        android:text="Log in"
         android:textAppearance="@android:style/TextAppearance.Material.Body1"
         android:translationX="50dp"
-        android:translationY="170dp"
+        android:translationY="200dp"
         android:onClick="buttonClicked"/>
 
 </LinearLayout>
