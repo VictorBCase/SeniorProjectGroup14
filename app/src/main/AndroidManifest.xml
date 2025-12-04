@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GroupActivity"
+            android:name=".JoinGroupActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SeniorProjectGroup14">
@@ -41,6 +41,17 @@
         </activity>
         <activity
             android:name=".QueueActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.SeniorProjectGroup14">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CreateGroupActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SeniorProjectGroup14">

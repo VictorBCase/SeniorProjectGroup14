@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:text="Hi name"
+        android:textColor="#71146F"
+        android:translationX="180dp"
+        android:translationY="50dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="Would you like to..."
+        android:textAlignment="center"
+        android:translationY="100dp" />
+
+    <Button
+        android:id="@+id/button"
+        style="@android:style/Widget.Button"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:contextClickable="true"
+        android:cursorVisible="false"
+        android:drawableTint="#673AB7"
+        android:onClick="buttonClicked"
+        android:text="Ride Solo"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:translationX="75dp"
+        android:translationY="170dp" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@android:style/Widget.Button"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:contextClickable="true"
+        android:cursorVisible="false"
+        android:drawableTint="#673AB7"
+        android:onClick="buttonClicked"
+        android:text="Create a Group"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:translationX="75dp"
+        android:translationY="250dp" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@android:style/Widget.Button"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:contextClickable="true"
+        android:cursorVisible="false"
+        android:drawableTint="#673AB7"
+        android:onClick="buttonClicked"
+        android:text="Join a Group"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:translationX="75dp"
+        android:translationY="330dp" />
+
+</FrameLayout>
