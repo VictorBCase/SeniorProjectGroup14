@@ -7,10 +7,10 @@ public class QueueTests {
       VirtualQueue queue = new VirtualQueue();
 
         //Creating manual users
-        User john = new User("John");
-        User adam = new User("Adam");
-        User chris = new User("Chris");
-        User wendy = new User("Wendy");
+        User john = new User("John", "password123");
+        User adam = new User("Adam", "password456");
+        User chris = new User("Chris", "password789");
+        User wendy = new User("Wendy", "password000");
 
         //Group creation where John is owner
         Group group = new Group("LotsOfRides", john);
