@@ -16,7 +16,7 @@ public class JoinGroupActivity extends Activity {
     }
 
     public void buttonClicked(View view) {
-        if (view.getId() == R.id.joinGroup)
+        if (view.getId() == R.id.back)
         {
             Intent intent = new Intent(JoinGroupActivity.this, RiderStatusActivity.class);
             startActivity(intent);

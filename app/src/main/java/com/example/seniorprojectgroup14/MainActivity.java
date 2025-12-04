@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
     public void buttonClicked(View view) {
 
         if (view.getId() == R.id.button) {
-            Intent intent = new Intent(MainActivity.this, QueueActivity.class);
+            Intent intent = new Intent(MainActivity.this, RiderStatusActivity.class);
 
             User testUser = new User("Test User", "password");
             VirtualQueue testQueue = new VirtualQueue();
