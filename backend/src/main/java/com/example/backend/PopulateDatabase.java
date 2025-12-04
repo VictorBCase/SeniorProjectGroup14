@@ -42,11 +42,11 @@ public class PopulateDatabase {
         db.addMemberToGroup(coolChrisGroup.getGroupId(), jonah.getId());
         db.addMemberToGroup(coolChrisGroup.getGroupId(), victor.getId());
 
-        Ride maverick = new Ride(UUID.randomUUID().toString(), "Maverick", new VirtualQueue(), 12, 1);
-        Ride magnumXL200 = new Ride(UUID.randomUUID().toString(), "Magnum XL200", new VirtualQueue(), 20, 2);
-        Ride steelVengance = new Ride(UUID.randomUUID().toString(), "Steel Vengance", new VirtualQueue(), 12, 3);
-        Ride topThrillTwo = new Ride(UUID.randomUUID().toString(), "Top Thrill Two", new VirtualQueue(), 10, 1);
-        Ride millenniumForce = new Ride(UUID.randomUUID().toString(), "Millennium Force", new VirtualQueue(), 13, 2);
+        Ride maverick = new Ride("R1", "Maverick", new VirtualQueue(), 12, 1);
+        Ride magnumXL200 = new Ride("R2", "Magnum XL200", new VirtualQueue(), 20, 2);
+        Ride steelVengance = new Ride("R3", "Steel Vengance", new VirtualQueue(), 12, 3);
+        Ride topThrillTwo = new Ride("R4", "Top Thrill Two", new VirtualQueue(), 10, 1);
+        Ride millenniumForce = new Ride("R5", "Millennium Force", new VirtualQueue(), 13, 2);
         maverick.generateQRCode();
         magnumXL200.generateQRCode();
         steelVengance.generateQRCode();
