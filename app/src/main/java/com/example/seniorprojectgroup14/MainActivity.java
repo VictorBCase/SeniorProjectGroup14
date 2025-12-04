@@ -3,7 +3,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.backend.*;
@@ -38,7 +37,7 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
         else if (view.getId() == R.id.button2) {
-            Intent intent = new Intent(MainActivity.this, GroupActivity.class);
+            Intent intent = new Intent(MainActivity.this, JoinGroupActivity.class);
             startActivity(intent);
         }
     }

@@ -23,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:background="#FFFCFC"
         android:scaleX="3"
         android:scaleY="3"
         android:text="VQueue"

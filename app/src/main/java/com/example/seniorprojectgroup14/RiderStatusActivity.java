@@ -2,13 +2,12 @@ package com.example.seniorprojectgroup14;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-public class QueueActivity extends Activity {
+public class RiderStatusActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.queue_layout);
+        setContentView(R.layout.rider_status_layout);
     }
 }

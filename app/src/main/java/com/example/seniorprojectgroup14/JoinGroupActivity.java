@@ -5,21 +5,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-public class GroupActivity extends Activity {
+public class JoinGroupActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.group_select);
+        setContentView(R.layout.join_group_layout);
     }
 
     public void buttonClicked(View view) {
 
         if (view.getId() == R.id.button3) {
-            Intent intent = new Intent(GroupActivity.this, QueueActivity.class);
+            Intent intent = new Intent(JoinGroupActivity.this, QueueActivity.class);
 
             User testUser = new User("Test User", "password");
             Group testGroup = new Group("Test Group", testUser);
@@ -41,7 +40,7 @@ public class GroupActivity extends Activity {
             startActivity(intent);
         }
         else if (view.getId() == R.id.button4) {
-            Intent intent = new Intent(GroupActivity.this, QueueActivity.class);
+            Intent intent = new Intent(JoinGroupActivity.this, QueueActivity.class);
 
             User testUser = new User("Test User", "password");
             Group testGroup = new Group("Test Group", testUser);
