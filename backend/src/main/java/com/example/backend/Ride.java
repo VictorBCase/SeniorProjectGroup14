@@ -36,6 +36,7 @@ public class Ride {
         this.queue = new VirtualQueue();
         this.hourlyCapacity = hourlyCapacity;
         this.loadTime = loadTime;
+        generateQRCode();
     }
 
     /**
