@@ -1,10 +1,12 @@
-package com.example.seniorprojectgroup14;
+package com.example.seniorprojectgroup14.plainOldJavaObjects;
 
-public class RegisterResponse {
+public class LoginResponse {
+
     private boolean success;
+
     private String userId;
 
-    public RegisterResponse(){
+    public LoginResponse(){
 
     }
 

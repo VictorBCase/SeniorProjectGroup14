@@ -30,7 +30,7 @@ public class APIController {
         this.um = um;
         this.rm = rm;
         this.gm = gm;
-        this.server = HttpServer.create(new InetSocketAddress(port), 0);
+        this.server = HttpServer.create(new InetSocketAddress("127.0.0.1", port), 0);
 
         //user login
         server.createContext("/register", this::register);
@@ -52,7 +52,10 @@ public class APIController {
         server.createContext("/isMember", this::isMember);
         server.setExecutor(null);
         server.start();
-        System.out.println("VQueue server running on http://localhost:" + port + "/");
+        System.out.println("VQueue Server is running on: "
+                + server.getAddress().getHostString()
+                + ":"
+                + server.getAddress().getPort());
     }
 
     /**
