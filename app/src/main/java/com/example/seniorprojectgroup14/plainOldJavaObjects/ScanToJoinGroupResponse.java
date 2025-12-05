@@ -1,14 +1,8 @@
-package com.example.seniorprojectgroup14;
+package com.example.seniorprojectgroup14.plainOldJavaObjects;
 
-public class ScanToLeaveResponse {
-
+public class ScanToJoinGroupResponse {
     private Boolean success;
-
     private int position;
-
-    public ScanToLeaveResponse(){
-
-    }
 
     public Boolean getSuccess() {
         return success;
@@ -16,5 +10,8 @@ public class ScanToLeaveResponse {
 
     public int getPosition() {
         return position;
+    }
+
+    public ScanToJoinGroupResponse() {
     }
 }

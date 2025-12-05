@@ -1,4 +1,4 @@
-package com.example.seniorprojectgroup14;
+package com.example.seniorprojectgroup14.plainOldJavaObjects;
 
 public class CreateGroupResponse {
 

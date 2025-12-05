@@ -1,4 +1,5 @@
-package com.example.seniorprojectgroup14;
+package com.example.seniorprojectgroup14.retrofitAPICommunication;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
