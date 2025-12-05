@@ -2,10 +2,10 @@ package com.example.seniorprojectgroup14.plainOldJavaObjects;
 
 public class AddMemberToGroupRequest {
     private String groupId;
-    private String userId;
+    private String username;
 
-    public AddMemberToGroupRequest(String groupId, String userId) {
+    public AddMemberToGroupRequest(String groupId, String username) {
         this.groupId = groupId;
-        this.userId = userId;
+        this.username = username;
     }
 }

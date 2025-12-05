@@ -96,7 +96,6 @@ public class APIController {
             JSONObject response = new JSONObject();
             response.put("success", true);
             response.put("userId", user.getId());
-
             sendJSON(exchange, response);
 
         } catch (IOException e) {
@@ -130,9 +129,9 @@ public class APIController {
 
                 if(isValidLogin){
                     response.put("userId", user.getId());
+                    System.out.println("Successfully logged in as: " + user.getUsername());
                 }
             }
-
             sendJSON(exchange, response);
 
         } catch (IOException e) {
@@ -478,7 +477,7 @@ public class APIController {
 
             JSONObject body = new JSONObject(readBody(exchange));
             String groupId = body.getString("groupId");
-            String userId = body.getString("userId");
+            String username = body.getString("username");
 
             Group group = gm.getGroup(groupId);
             if (group == null) {
@@ -486,14 +485,14 @@ public class APIController {
                 return;
             }
 
-            User user = um.getUser(userId);
+            User user = um.getUser(username);
             if(user == null){
                 sendError(exchange, 406, "user not found");
                 return;
             }
 
             group.addMember(user);
-            db.addMemberToGroup(groupId, userId);
+            db.addMemberToGroup(groupId, user.getId());
 
             JSONObject response = new JSONObject();
             response.put("success", true);
@@ -516,7 +515,7 @@ public class APIController {
 
             JSONObject body = new JSONObject(readBody(exchange));
             String groupId = body.getString("groupId");
-            String userId = body.getString("userId");
+            String username = body.getString("username");
 
             Group group = gm.getGroup(groupId);
             if (group == null) {
@@ -524,13 +523,13 @@ public class APIController {
                 return;
             }
 
-            User user = um.getUser(userId);
+            User user = um.getUser(username);
             if(user == null){
                 sendError(exchange, 406, "user not found");
                 return;
             }
             group.removeMember(user);
-            db.removeMemberFromGroup(groupId, userId);
+            db.removeMemberFromGroup(groupId, user.getId());
 
             JSONObject response = new JSONObject();
             response.put("success", true);

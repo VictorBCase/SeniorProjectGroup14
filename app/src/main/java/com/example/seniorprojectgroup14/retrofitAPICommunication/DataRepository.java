@@ -291,9 +291,9 @@ public class DataRepository {
         });
     }
 
-    public void addMemberToGroup(String groupId, String userId, final RepoCallback<AddMemberToGroupResponse> callback) {
+    public void addMemberToGroup(String groupId, String username, final RepoCallback<AddMemberToGroupResponse> callback) {
 
-        AddMemberToGroupRequest request = new AddMemberToGroupRequest(groupId, userId);
+        AddMemberToGroupRequest request = new AddMemberToGroupRequest(groupId, username);
 
         Call<AddMemberToGroupResponse> call = apiService.addMemberToGroup(request);
 
@@ -315,9 +315,9 @@ public class DataRepository {
         });
     }
 
-    public void removeMemberFromGroup(String groupId, String userId, final RepoCallback<RemoveMemberFromGroupResponse> callback) {
+    public void removeMemberFromGroup(String groupId, String username, final RepoCallback<RemoveMemberFromGroupResponse> callback) {
 
-        RemoveMemberFromGroupRequest request = new RemoveMemberFromGroupRequest(groupId, userId);
+        RemoveMemberFromGroupRequest request = new RemoveMemberFromGroupRequest(groupId, username);
 
         Call<RemoveMemberFromGroupResponse> call = apiService.removeMemberFromGroup(request);
 
