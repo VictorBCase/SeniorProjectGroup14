@@ -28,6 +28,17 @@
         android:textAlignment="center"
         android:translationY="250dp" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="Remove Members"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:textAlignment="center"
+        android:translationY="400dp" />
+
     <EditText
         android:id="@+id/addMember"
         android:layout_width="wrap_content"
@@ -48,6 +59,16 @@
         android:translationX="20dp"
         android:translationY="150dp" />
 
+    <EditText
+        android:id="@+id/removeID"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="User ID"
+        android:translationX="20dp"
+        android:translationY="450dp" />
+
     <Button
         android:id="@+id/createGroup"
         android:layout_width="wrap_content"
@@ -62,9 +83,19 @@
         android:id="@+id/addToGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add to group"
+        android:text="Add"
         android:translationX="250dp"
         android:translationY="300dp"
+        android:contextClickable="true"
+        android:onClick="buttonClicked"/>
+
+    <Button
+        android:id="@+id/removeFromGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove"
+        android:translationX="250dp"
+        android:translationY="450dp"
         android:contextClickable="true"
         android:onClick="buttonClicked"/>
 
@@ -74,7 +105,7 @@
         android:layout_height="wrap_content"
         android:text="Done"
         android:translationX="160dp"
-        android:translationY="400dp"
+        android:translationY="550dp"
         android:contextClickable="true"
         android:onClick="buttonClicked"/>
 </FrameLayout>

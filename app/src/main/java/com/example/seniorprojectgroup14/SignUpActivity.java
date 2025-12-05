@@ -39,7 +39,7 @@ public class SignUpActivity extends Activity {
                     @Override
                     public void onSuccess(RegisterResponse result) {
                         if (result.isSuccess()) {
-                            Toast.makeText(SignUpActivity.this, "SUCCESS! Navigating...", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUpActivity.this, "Registration successful", Toast.LENGTH_LONG).show();
                             startActivity(intent);
                         } else {
                             Toast.makeText(SignUpActivity.this, "SERVER DENIED: Check username/password rules.", Toast.LENGTH_LONG).show();

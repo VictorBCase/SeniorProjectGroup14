@@ -19,6 +19,7 @@ public class CreateGroupActivity extends Activity {
 
     EditText groupNameInput;
     EditText addMemberInput;
+    EditText removeMemberInput;
     DataRepository dataRepository = DataRepository.getInstance();
     private SessionManager sessionManager;
 
@@ -30,16 +31,20 @@ public class CreateGroupActivity extends Activity {
 
         groupNameInput = (EditText) findViewById(R.id.groupName);
         addMemberInput = (EditText) findViewById(R.id.addMember);
+        removeMemberInput = (EditText) findViewById(R.id.removeID);
         sessionManager = SessionManager.getInstance();
         findViewById(R.id.done).setEnabled(false);
         findViewById(R.id.addMember).setEnabled(false);
         findViewById(R.id.addToGroup).setEnabled(false);
+        findViewById(R.id.removeID).setEnabled(false);
+        findViewById(R.id.removeFromGroup).setEnabled(false);
     }
 
     public void buttonClicked(View view) {
 
         String groupName = groupNameInput.getText().toString();
         String addMember = addMemberInput.getText().toString();
+        String removeMember = removeMemberInput.getText().toString();
 
         if (view.getId() == R.id.createGroup) {
             if ((!groupName.isEmpty())) {
@@ -76,7 +81,26 @@ public class CreateGroupActivity extends Activity {
                     @Override
                     public void onSuccess(AddMemberToGroupResponse result) {
                         findViewById(R.id.done).setEnabled(true);
+                        findViewById(R.id.removeID).setEnabled(true);
+                        findViewById(R.id.removeFromGroup).setEnabled(true);
                         Toast.makeText(CreateGroupActivity.this, addMember + " added to group!", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(CreateGroupActivity.this, "Error: " + message, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
+
+        if (view.getId() == R.id.removeFromGroup) {
+            if (!addMember.isEmpty()) {
+                dataRepository.removeMemberFromGroup(groupId, removeMember, new RepoCallback<RemoveMemberFromGroupResponse>() {
+
+                    @Override
+                    public void onSuccess(RemoveMemberFromGroupResponse result) {
+                        Toast.makeText(CreateGroupActivity.this, removeMember + " removed from group.", Toast.LENGTH_LONG).show();
                     }
 
                     @Override

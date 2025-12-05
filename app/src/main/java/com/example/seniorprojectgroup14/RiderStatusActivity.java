@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 public class RiderStatusActivity extends Activity {
 
     private TextView welcomeMessage;
@@ -36,6 +38,7 @@ public class RiderStatusActivity extends Activity {
 
     public void buttonClicked(View view) {
         if (view.getId() == R.id.rideSolo) {
+            Toast.makeText(this, "Opening QR Scanner", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(RiderStatusActivity.this, QRScannerActivity.class);
             startActivity(intent);
         }
@@ -45,6 +48,12 @@ public class RiderStatusActivity extends Activity {
         }
         else if (view.getId() == R.id.joinGroup) {
             Intent intent = new Intent(RiderStatusActivity.this, JoinGroupActivity.class);
+            startActivity(intent);
+        }
+        else if (view.getId() == R.id.logOut) {
+            SessionManager.getInstance().setSession(null, null);
+            Toast.makeText(this, "Logout successful", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(RiderStatusActivity.this, MainActivity.class);
             startActivity(intent);
         }
     }
