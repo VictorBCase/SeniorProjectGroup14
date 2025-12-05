@@ -32,10 +32,10 @@
 
     <EditText
         android:id="@+id/passwordInput"
+        android:inputType="textPassword"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="New Password"
         android:translationX="100dp"
         android:translationY="200dp" />

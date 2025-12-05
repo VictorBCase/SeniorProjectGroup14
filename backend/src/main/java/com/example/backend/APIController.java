@@ -479,6 +479,7 @@ public class APIController {
             JSONObject body = new JSONObject(readBody(exchange));
             String groupId = body.getString("groupId");
             String userId = body.getString("userId");
+            System.out.println(userId);
 
             //System.out.println("DEBUG: RECEIVED username (raw): [" + rawUsername + "]");
             //String lookupUsername = rawUsername.trim();
