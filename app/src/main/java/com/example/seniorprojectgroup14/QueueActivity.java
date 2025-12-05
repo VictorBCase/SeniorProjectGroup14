@@ -63,7 +63,7 @@ public class QueueActivity extends Activity {
 
     public void buttonClicked(View view) {
         if (view.getId() == R.id.LeaveQueue) {
-            Intent intent = new Intent(QueueActivity.this, QRScannerActivity.class);
+            Intent intent = new Intent(QueueActivity.this, RiderStatusActivity.class);
             startActivity(intent);
         }
     }

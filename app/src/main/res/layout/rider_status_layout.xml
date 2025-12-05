@@ -70,4 +70,19 @@
         android:translationX="75dp"
         android:translationY="330dp" />
 
+    <Button
+        android:id="@+id/logOut"
+        style="@android:style/Widget.Button"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:contextClickable="true"
+        android:cursorVisible="false"
+        android:drawableTint="#673AB7"
+        android:onClick="buttonClicked"
+        android:text="Logout"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:translationX="75dp"
+        android:translationY="410dp" />
+
 </FrameLayout>
