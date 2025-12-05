@@ -11,9 +11,9 @@
         android:layout_weight="0"
         android:scaleX="3"
         android:scaleY="3"
-        android:text="Create\nGroup"
+        android:text="Create Group"
         android:textColor="#71146F"
-        android:translationX="180dp"
+        android:translationX="165dp"
         android:translationY="90dp"
         android:textAlignment="center"/>
 
@@ -29,29 +29,44 @@
         android:translationY="250dp" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/addMember"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Search Username"
-        android:translationY="270dp" />
+        android:hint="Username"
+        android:translationX="20dp"
+        android:translationY="300dp" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/groupName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:ems="10"
         android:inputType="text"
         android:hint="Group Name"
-        android:translationY="180dp" />
+        android:translationX="20dp"
+        android:translationY="150dp" />
 
-    <TextView
-        android:id="@+id/textView7"
+    <Button
+        android:id="@+id/createGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="People looking for a group"
-        android:translationY="320dp" />
+        android:text="Create group"
+        android:translationX="250dp"
+        android:translationY="150dp"
+        android:contextClickable="true"
+        android:onClick="buttonClicked"/>
+
+    <Button
+        android:id="@+id/addToGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to group"
+        android:translationX="250dp"
+        android:translationY="300dp"
+        android:contextClickable="true"
+        android:onClick="buttonClicked"/>
 
     <Button
         android:id="@+id/done"
@@ -59,5 +74,7 @@
         android:layout_height="wrap_content"
         android:text="Done"
         android:translationX="160dp"
-        android:translationY="400dp" />
+        android:translationY="400dp"
+        android:contextClickable="true"
+        android:onClick="buttonClicked"/>
 </FrameLayout>
