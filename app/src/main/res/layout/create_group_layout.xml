@@ -34,7 +34,7 @@
         android:layout_height="50dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Username"
+        android:hint="User ID"
         android:translationX="20dp"
         android:translationY="300dp" />
 

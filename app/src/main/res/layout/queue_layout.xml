@@ -49,7 +49,10 @@
         android:layout_height="wrap_content"
         android:text="Leave Queue"
         android:translationX="160dp"
-        android:translationY="500dp" />
+        android:translationY="500dp"
+        android:onClick="buttonClicked"
+        android:contextClickable="true"
+        />
 
 
 </FrameLayout>
