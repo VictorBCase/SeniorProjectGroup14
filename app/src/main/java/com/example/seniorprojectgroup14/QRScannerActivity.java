@@ -1,6 +1,7 @@
 package com.example.seniorprojectgroup14;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +12,19 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.budiyev.android.codescanner.*;
+import com.example.seniorprojectgroup14.plainOldJavaObjects.ScanToJoinResponse;
+import com.example.seniorprojectgroup14.retrofitAPICommunication.DataRepository;
 import com.google.zxing.Result;
 
 public class QRScannerActivity extends Activity {
     private CodeScanner mCodeScanner;
+    private SessionManager sessionManager;
+
+    DataRepository dataRepository = DataRepository.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        sessionManager = SessionManager.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qr_scan_layout);
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
@@ -28,7 +35,23 @@ public class QRScannerActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(QRScannerActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        String rideID = result.getText().substring(result.getText().lastIndexOf('/'));
+                        Toast.makeText(QRScannerActivity.this, rideID, Toast.LENGTH_SHORT).show();
+                        dataRepository.scanToJoin(rideID, sessionManager.getUserId(), result.getText(), new DataRepository.RepoCallback<ScanToJoinResponse>(){
+                            @Override
+                            public void onSuccess(ScanToJoinResponse result) {
+                                Intent intent = new Intent(QRScannerActivity.this, QueueActivity.class);
+                                intent.putExtra("rideId", rideID);
+                                startActivity(intent);
+                            }
+                            @Override
+                            public void onError(String message) {
+                                Toast.makeText(QRScannerActivity.this, "SERVER DENIED: " + message, Toast.LENGTH_LONG).show();
+                            }
+
+                        });
+
+
                     }
                 });
             }
