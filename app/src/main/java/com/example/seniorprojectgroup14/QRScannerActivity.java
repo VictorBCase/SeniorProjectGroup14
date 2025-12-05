@@ -35,7 +35,7 @@ public class QRScannerActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String rideID = result.getText().substring(result.getText().lastIndexOf('/'));
+                        String rideID = result.getText().substring(result.getText().lastIndexOf('/') + 1);
                         Toast.makeText(QRScannerActivity.this, rideID, Toast.LENGTH_SHORT).show();
                         dataRepository.scanToJoin(rideID, sessionManager.getUserId(), result.getText(), new DataRepository.RepoCallback<ScanToJoinResponse>(){
                             @Override

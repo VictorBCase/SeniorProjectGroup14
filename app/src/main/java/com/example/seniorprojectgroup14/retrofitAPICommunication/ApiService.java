@@ -46,7 +46,4 @@ public interface ApiService {
 
     @POST("isMember")
     Call<IsMemberResponse> isMember(@Body IsMemberRequest request);
-
-    @POST("getRideName")
-    Call<RideNameResponse> getRideName(@Body RideNameRequest request);
 }

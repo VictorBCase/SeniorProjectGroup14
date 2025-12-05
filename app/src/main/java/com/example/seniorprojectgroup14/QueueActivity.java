@@ -26,7 +26,7 @@ public class QueueActivity extends Activity {
         rideID = getIntent().getStringExtra("rideId");
 
         TextView rideName = findViewById(R.id.line);
-        String nameOfRide = "You are\nin line for " + dataRepository.getRideName(rideID);
+        String nameOfRide = "You are\nin line for " + rideID; // NEEDS TO BE CHANGED TO RIDE NAME
         rideName.setText(nameOfRide);
 
         final TextView pplInFront = findViewById(R.id.pplInFront);
