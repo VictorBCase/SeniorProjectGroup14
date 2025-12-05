@@ -291,9 +291,9 @@ public class DataRepository {
         });
     }
 
-    public void addMemberToGroup(String groupId, String username, final RepoCallback<AddMemberToGroupResponse> callback) {
+    public void addMemberToGroup(String groupId, String userId, final RepoCallback<AddMemberToGroupResponse> callback) {
 
-        AddMemberToGroupRequest request = new AddMemberToGroupRequest(groupId, username);
+        AddMemberToGroupRequest request = new AddMemberToGroupRequest(groupId, userId);
 
         Call<AddMemberToGroupResponse> call = apiService.addMemberToGroup(request);
 

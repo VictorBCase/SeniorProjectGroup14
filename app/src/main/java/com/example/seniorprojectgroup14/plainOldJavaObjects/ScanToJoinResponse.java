@@ -6,6 +6,12 @@ public class ScanToJoinResponse {
 
     private int position;
 
+    private String ridename;
+
+    public String getRideName() {
+        return ridename;
+    }
+
     public ScanToJoinResponse(){
 
     }

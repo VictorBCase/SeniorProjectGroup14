@@ -4,6 +4,11 @@ public class ScanToJoinGroupResponse {
     private Boolean success;
     private int position;
 
+    private String ridename;
+
+    public String getRideName() {
+        return ridename;
+    }
     public Boolean getSuccess() {
         return success;
     }
