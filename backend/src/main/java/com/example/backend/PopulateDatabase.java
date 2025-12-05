@@ -10,15 +10,24 @@ public class PopulateDatabase {
 
     public static void populateDatabase() {
         DatabaseManager db = new DatabaseManager();
+        UserManager um = new UserManager(db);
+        um.createUser("Julio", "12345");
+        um.createUser("Daniel", "3618");
+        um.createUser("Victor", "1234");
+        um.createUser("Jonah", "98765");
+        um.createUser("Aine", "4920");
+        um.createUser("Chris", "52395");
+        um.createUser("Jen", "5894");
+        um.createUser("Linton", "1234");
 
-        User julio = new User("Julio", "12345");
-        User daniel = new User("Daniel", "3618");
-        User victor = new User("Victor", "1234");
-        User jonah = new User("Jonah", "98765");
-        User aine = new User("Aine", "4920");
-        User chris = new User("Chris", "52395");
-        User jen = new User("Jen", "5894");
-        User linton = new User("Linton", "1234");
+        User julio = um.login("Julio", "12345");
+        User daniel = um.login("Daniel", "3618");
+        User victor = um.login("Victor", "1234");
+        User jonah = um.login("Jonah", "98765");
+        User aine = um.login("Aine", "4920");
+        User chris = um.login("Chris", "52395");
+        User jen = um.login("Jen", "5894");
+        User linton = um.login("Linton", "1234");
 
         Group cwruGroup14 = new Group("CWRU Group 14", aine);
         Group coolChrisGroup = new Group("Cool Chris Group", chris);

@@ -184,6 +184,7 @@ public class APIController {
             JSONObject response = new JSONObject();
             response.put("success", true);
             response.put("position", position);
+            response.put("ridename", ride.getRideName());
 
             sendJSON(exchange, response);
         } catch (IOException e) {
@@ -408,7 +409,7 @@ public class APIController {
             JSONObject response = new JSONObject();
             response.put("success", true);
             response.put("position", position);
-
+            response.put("ridename", ride.getRideName());
             sendJSON(exchange, response);
 
         } catch (IOException e) {
@@ -477,12 +478,12 @@ public class APIController {
 
             JSONObject body = new JSONObject(readBody(exchange));
             String groupId = body.getString("groupId");
-            String rawUsername = body.getString("username");
+            String userId = body.getString("userId");
 
-            System.out.println("DEBUG: RECEIVED username (raw): [" + rawUsername + "]");
-            String lookupUsername = rawUsername.trim();
+            //System.out.println("DEBUG: RECEIVED username (raw): [" + rawUsername + "]");
+            //String lookupUsername = rawUsername.trim();
 
-            System.out.println("DEBUG: LOOKUP username (trimmed): [" + lookupUsername + "]");
+            //System.out.println("DEBUG: LOOKUP username (trimmed): [" + lookupUsername + "]");
 
             Group group = gm.getGroup(groupId);
             if (group == null) {
@@ -490,7 +491,7 @@ public class APIController {
                 return;
             }
 
-            User user = um.getUser(lookupUsername); // Use the trimmed string for lookup
+            User user = um.getUser(userId); // Use the trimmed string for lookup
             if(user == null){
                 sendError(exchange, 406, "user not found");
                 return;
@@ -501,6 +502,7 @@ public class APIController {
 
             JSONObject response = new JSONObject();
             response.put("success", true);
+            response.put("username", user.getUsername());
             sendJSON(exchange, response);
 
         } catch (IOException e) {

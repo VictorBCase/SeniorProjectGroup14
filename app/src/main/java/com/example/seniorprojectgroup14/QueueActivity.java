@@ -14,7 +14,9 @@ public class QueueActivity extends Activity {
 
     private SessionManager sessionManager;
     private DataRepository dataRepository;
+
     private String rideID;
+    private String ridename;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,9 +26,10 @@ public class QueueActivity extends Activity {
         sessionManager = SessionManager.getInstance();
         dataRepository = DataRepository.getInstance();
         rideID = getIntent().getStringExtra("rideId");
+        ridename = getIntent().getStringExtra("ridename");
 
         TextView rideName = findViewById(R.id.line);
-        String nameOfRide = "You are\nin line for " + rideID; // NEEDS TO BE CHANGED TO RIDE NAME
+        String nameOfRide = "You are\nin line for " + ridename; // NEEDS TO BE CHANGED TO RIDE NAME
         rideName.setText(nameOfRide);
 
         final TextView pplInFront = findViewById(R.id.pplInFront);

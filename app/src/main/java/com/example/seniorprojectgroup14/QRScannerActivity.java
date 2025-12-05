@@ -42,6 +42,7 @@ public class QRScannerActivity extends Activity {
                             public void onSuccess(ScanToJoinResponse result) {
                                 Intent intent = new Intent(QRScannerActivity.this, QueueActivity.class);
                                 intent.putExtra("rideId", rideID);
+                                intent.putExtra("ridename", result.getRideName());
                                 startActivity(intent);
                             }
                             @Override
