@@ -11,27 +11,47 @@
         android:layout_weight="0"
         android:scaleX="3"
         android:scaleY="3"
-        android:text="Waiting to\nJoin Group"
+        android:text="Join Group"
         android:textAlignment="center"
         android:textColor="#71146F"
         android:translationX="180dp"
         android:translationY="100dp" />
+
+    <EditText
+        android:id="@+id/groupName"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Group Name"
+        android:translationX="20dp"
+        android:translationY="250dp" />
+
+    <Button
+        android:id="@+id/checkStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Status"
+        android:translationX="250dp"
+        android:translationY="250dp"
+        android:contextClickable="true"
+        android:onClick="buttonClicked"/>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Your name will appear\non the group owner's screen"
-        android:translationX="120dp"
-        android:translationY="250dp" />
+        android:text="Ask your group leader\nto add your username."
+        android:translationX="140dp"
+        android:translationY="150dp" />
 
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
-        android:translationX="160dp"
+        android:translationX="165dp"
         android:translationY="350dp" />
 
 

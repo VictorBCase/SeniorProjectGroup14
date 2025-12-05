@@ -339,9 +339,9 @@ public class DataRepository {
         });
     }
 
-    public void isMember(String groupId, String userId, final RepoCallback<IsMemberResponse> callback) {
+    public void isMember(String groupName, String userId, final RepoCallback<IsMemberResponse> callback) {
 
-        IsMemberRequest request = new IsMemberRequest(groupId, userId);
+        IsMemberRequest request = new IsMemberRequest(groupName, userId);
 
         Call<IsMemberResponse> call = apiService.isMember(request);
 

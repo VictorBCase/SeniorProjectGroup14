@@ -477,7 +477,12 @@ public class APIController {
 
             JSONObject body = new JSONObject(readBody(exchange));
             String groupId = body.getString("groupId");
-            String username = body.getString("username");
+            String rawUsername = body.getString("username");
+
+            System.out.println("DEBUG: RECEIVED username (raw): [" + rawUsername + "]");
+            String lookupUsername = rawUsername.trim();
+
+            System.out.println("DEBUG: LOOKUP username (trimmed): [" + lookupUsername + "]");
 
             Group group = gm.getGroup(groupId);
             if (group == null) {
@@ -485,7 +490,7 @@ public class APIController {
                 return;
             }
 
-            User user = um.getUser(username);
+            User user = um.getUser(lookupUsername); // Use the trimmed string for lookup
             if(user == null){
                 sendError(exchange, 406, "user not found");
                 return;
@@ -551,10 +556,10 @@ public class APIController {
             if (!requirePostRequest(exchange)) return;
 
             JSONObject body = new JSONObject(readBody(exchange));
-            String groupId = body.getString("groupId");
+            String groupName = body.getString("groupName");
             String userId = body.getString("userId");
 
-            boolean isMember = db.isUserInGroup(groupId, userId);
+            boolean isMember = db.isUserInGroup(groupName, userId);
 
             JSONObject response = new JSONObject();
             response.put("isMember", isMember);
